@@ -31,7 +31,6 @@ tarefa: Tarefa={
 
  cadastrarUsuario():void{
 
-    this.categoriaAtualiza=this.categoria
     const tarefa: Tarefa={
       nome: this.nome,
       categoria: this.categoria
@@ -50,9 +49,9 @@ tarefa: Tarefa={
  }
  atualizar(indice):void{
   this.tarefas=JSON.parse(localStorage.getItem('tarefas'))
-  console.log(this.tarefas[indice].categoria)
-  console.log(this.tarefa.categoria)
-  this.tarefas[indice].categoria=this.categoria
+  console.log(this.categoriaAtualiza)
+  this.tarefas[indice].categoria=this.categoriaAtualiza
+  localStorage.setItem('tarefas',JSON.stringify(this.tarefas))
  }
 }
 

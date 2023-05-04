@@ -14,7 +14,7 @@ placeholder="nome" [(ngModel)]="nome" /><br>
   <button (click)="removerTarefa(indice)">REMOVER</button>
 
   <h4>tarefa: {{tarefa.nome}}</h4>
-  <select name="categTarefa" id="categTarefa" (change)="atualizar(indice)" [value]='tarefa.categoria'>
+  <select name="categTarefa" id="categTarefa" (change)="atualizar(indice)" [(ngModel)]='tarefa.categoria'>
   <option value="DO">DO</option>
   <option value="DOING">DOING</option>
   <option value="DONE">DONE</option>
