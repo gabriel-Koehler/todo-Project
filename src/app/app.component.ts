@@ -1,5 +1,9 @@
 import { Component} from '@angular/core';
 
+interface OnInit {
+  ngOnInit(): void
+}
+
 interface Tarefa{
   nome:string,
   categoria:string
@@ -17,24 +21,39 @@ export class AppComponent {
 
   nome:string = ''
   categoria:string =''
+  categoriaAtualiza:string=''
 tarefa: Tarefa={
  nome: this.nome,
  categoria: this.categoria
 }
+
   tarefas: Tarefa[]=[]
 
  cadastrarUsuario():void{
 
+    this.categoriaAtualiza=this.categoria
     const tarefa: Tarefa={
-      nome: this.tarefa.nome,
-      categoria: this.tarefa.categoria
+      nome: this.nome,
+      categoria: this.categoria
     }
 
     this.tarefas.push(tarefa)
     console.log(this.tarefas)
-    this.tarefa.nome=''
+    this.nome=''
+    this.categoria=''
+    localStorage.setItem('tarefas',JSON.stringify(this.tarefas));
+    
  }
  removerTarefa(indice):void{
-    this.tarefas.slice(indice,indice+1)
+    this.tarefas.splice(indice,1)
+    localStorage.setItem('tarefas',JSON.stringify(this.tarefas));
+ }
+ atualizar(indice):void{
+  this.tarefas=JSON.parse(localStorage.getItem('tarefas'))
+  console.log(this.tarefas[indice].categoria)
+  console.log(this.tarefa.categoria)
+  this.tarefas[indice].categoria=this.categoria
  }
 }
+
+

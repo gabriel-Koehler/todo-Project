@@ -1,8 +1,8 @@
 <input 
-placeholder="nome" [(ngModel)]="tarefa.nome" /><br>
+placeholder="nome" [(ngModel)]="nome" /><br>
 <label>tarefa: <strong>{{nome}}</strong></label>
 <br>
-<select name="categoria" id="categ" [(ngModel)]="tarefa.categoria">
+<select name="categoria" id="categ" [(ngModel)]="categoria">
   <option value="DO">DO</option>
   <option value="DOING">DOING</option>
   <option value="DONE">DONE</option>
@@ -14,8 +14,8 @@ placeholder="nome" [(ngModel)]="tarefa.nome" /><br>
   <button (click)="removerTarefa(indice)">REMOVER</button>
 
   <h4>tarefa: {{tarefa.nome}}</h4>
-  <select name="categTarefa" id="categTarefa" [value]="tarefa.categoria">
-    <option value="DO">DO</option>
+  <select name="categTarefa" id="categTarefa" (change)="atualizar(indice)" [value]='tarefa.categoria'>
+  <option value="DO">DO</option>
   <option value="DOING">DOING</option>
   <option value="DONE">DONE</option>
   </select>
