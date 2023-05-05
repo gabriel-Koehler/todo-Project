@@ -1,12 +1,10 @@
-import { Component} from '@angular/core';
+import { Component,OnInit} from '@angular/core';
 
-interface OnInit {
-  ngOnInit(): void
-}
 
 interface Tarefa{
-  nome:string,
+  titulo:string,
   categoria:string
+  descricao:string
 }
 
 @Component({
@@ -16,29 +14,37 @@ interface Tarefa{
 })
 
 
-export class AppComponent {
+export class AppComponent{
   title = 'todo-app';
 
-  nome:string = ''
-  categoria:string =''
-  categoriaAtualiza:string=''
+  titulo:string
+  categoria:string 
+  categoriaAtualiza:string
+  descricao:string
 tarefa: Tarefa={
- nome: this.nome,
- categoria: this.categoria
+ titulo: this.titulo,
+ categoria: this.categoria,
+ descricao: this.descricao
 }
 
-  tarefas: Tarefa[]=[]
 
+tarefas: Tarefa[]=[]
+
+ngOnInit():void{
+  if(localStorage.getItem('tarefas')!=null){
+    this.tarefas = JSON.parse(localStorage.getItem('tarefas'))
+  }
+}
  cadastrarUsuario():void{
 
     const tarefa: Tarefa={
-      nome: this.nome,
+      titulo: this.titulo,
       categoria: this.categoria
-    }
 
+    }
     this.tarefas.push(tarefa)
     console.log(this.tarefas)
-    this.nome=''
+    this.titulo=''
     this.categoria=''
     localStorage.setItem('tarefas',JSON.stringify(this.tarefas));
     
@@ -49,9 +55,9 @@ tarefa: Tarefa={
  }
  atualizar(indice):void{
   this.tarefas=JSON.parse(localStorage.getItem('tarefas'))
-  console.log(this.categoriaAtualiza)
   this.tarefas[indice].categoria=this.categoriaAtualiza
   localStorage.setItem('tarefas',JSON.stringify(this.tarefas))
+
  }
 }
 

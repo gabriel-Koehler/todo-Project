@@ -1,0 +1,35 @@
+*{
+    box-sizing: border-box;
+}
+header{
+    height: 40px;
+    background-color: blueviolet;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tarefa{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.tarefa>#DOING{
+    text-align: center;
+    width: 20%;
+    border: 1px solid black ;
+}
+
+.tarefa>#DONE{
+    text-align: center;
+    width: 20%;
+    border: 1px solid black ;
+}
+
+.tarefa>#TODO{
+    text-align: center;
+    width: 20%;
+    border: 1px solid black ;
+}
