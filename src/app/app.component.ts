@@ -16,11 +16,11 @@ interface Tarefa{
 
 export class AppComponent{
   title = 'todo-app';
-
-  titulo:string
-  categoria:string 
-  categoriaAtualiza:string
-  descricao:string
+  
+  titulo:string=''
+  categoria:string =''
+  categoriaAtualizada:string 
+  descricao:string=''
 tarefa: Tarefa={
  titulo: this.titulo,
  categoria: this.categoria,
@@ -39,8 +39,8 @@ ngOnInit():void{
 
     const tarefa: Tarefa={
       titulo: this.titulo,
-      categoria: this.categoria
-
+      categoria: this.categoria,
+      descricao: this.descricao
     }
     this.tarefas.push(tarefa)
     console.log(this.tarefas)
@@ -53,9 +53,10 @@ ngOnInit():void{
     this.tarefas.splice(indice,1)
     localStorage.setItem('tarefas',JSON.stringify(this.tarefas));
  }
- atualizar(indice):void{
+ atualizar(indice,categoriaa):void{
   this.tarefas=JSON.parse(localStorage.getItem('tarefas'))
-  this.tarefas[indice].categoria=this.categoriaAtualiza
+  console.log(categoriaa)
+  this.tarefas[indice].categoria=categoriaa
   localStorage.setItem('tarefas',JSON.stringify(this.tarefas))
 
  }

@@ -14,19 +14,20 @@
 </header>
   
 <div class="tarefa">
-  <div id="TODO">
+  <div  id="TODO">
     do
   <div *ngFor="let tarefa of tarefas;index as indice" class="lista">
     <div *ngIf="tarefa.categoria=='TODO'">
-      <button (click)="removerTarefa(indice)">REMOVER</button>
-
-      <h4>tarefa: {{tarefa.nome}}</h4>
-      <p>categoria: {{tarefa.categoria}}</p>
-      <select name="categTarefa" id="categTarefa" (change)="atualizar(indice)" [(ngModel)]='categoriaAtualiza'>
-        <option value="TODO">TODO</option>
-        <option value="DOING">DOING</option>
-        <option value="DONE">DONE</option>
+      
+      <h4>tarefa: {{tarefa.titulo}}</h4>
+      <p>descricao: {{tarefa.descricao}}</p>
+      <p>categoria:</p>
+      <select name="categTarefa" id="categTarefa"  (change)="atualizar(indice,tarefa.categoria)" [(ngModel)]='tarefa.categoria'>
+        <option  value="TODO">TODO</option>
+        <option  value="DOING">DOING</option>
+        <option  value="DONE">DONE</option>
       </select>
+      <button (click)="removerTarefa(indice)">REMOVER</button>
     </div>
   </div>
 </div>
@@ -36,15 +37,16 @@
     <div *ngFor="let tarefa of tarefas;index as indice" class="lista">
 
       <div *ngIf="tarefa.categoria=='DOING'">
-        <button (click)="removerTarefa(indice)">REMOVER</button>
-
-        <h4>tarefa: {{tarefa.nome}}</h4>
-        <p>categoria: {{tarefa.categoria}}</p>
-        <select name="categTarefa" id="categTarefa" (change)="atualizar(indice)" [(ngModel)]='categoriaAtualiza'>
-          <option value="TODO">TODO</option>
-          <option value="DOING">DOING</option>
-          <option value="DONE">DONE</option>
+        
+        <h4>tarefa: {{tarefa.titulo}}</h4>
+        <p>descricao: {{tarefa.descricao}}</p>
+        <p>categoria:</p>
+        <select name="categTarefa" id="categTarefa" (change)="atualizar(indice,tarefa.categoria)" [(ngModel)]='tarefa.categoria'>
+          <option  value="TODO">TODO</option>
+          <option  value="DOING">DOING</option>
+          <option  value="DONE">DONE</option>
         </select>
+        <button (click)="removerTarefa(indice)">REMOVER</button>
       </div>
     </div>
   </div>
@@ -53,15 +55,16 @@
     <div *ngFor="let tarefa of tarefas;index as indice" class="lista" >
 
       <div *ngIf="tarefa.categoria=='DONE'">
-        <button (click)="removerTarefa(indice)">REMOVER</button>
-
-        <h4>tarefa: {{tarefa.nome}}</h4>
-        <p>categoria: {{tarefa.categoria}}</p>
-        <select name="categTarefa" id="categTarefa" (change)="atualizar(indice)" [(ngModel)]='categoriaAtualiza'>
-          <option value="TODO">TODO</option>
-          <option value="DOING">DOING</option>
-          <option value="DONE">DONE</option>
+        
+        <h4>tarefa: {{tarefa.titulo}}</h4>
+        <p>descricao: {{tarefa.descricao}}</p>
+        <p>categoria:</p>
+        <select name="categTarefa" id="categTarefa" (change)="atualizar(indice,tarefa.categoria)" [(ngModel)]='tarefa.categoria'>
+          <option  value="TODO">TODO</option>
+          <option  value="DOING">DOING</option>
+          <option  value="DONE">DONE</option>
         </select>
+        <button (click)="removerTarefa(indice)">REMOVER</button>
       </div>
     </div>
   </div>
