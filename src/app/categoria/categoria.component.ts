@@ -15,6 +15,9 @@ adicionar=new EventEmitter()
     
 
     adicionarCategoria():void{
+        if(JSON.parse(localStorage.getItem('categorias'))!=null){
+            this.categorias =JSON.parse(localStorage.getItem('categorias'))
+        }
            
         console.log(this.nomeCategoria)
          this.adicionar.emit(this.nomeCategoria)

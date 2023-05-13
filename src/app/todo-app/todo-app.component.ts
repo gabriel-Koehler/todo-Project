@@ -24,16 +24,14 @@ tarefa: Tarefa={
  categoria: this.categoria,
  descricao: this.descricao
 }
-categorias:Categoria[]=[{categoria:'TODO'},{categoria:'DOING'},{categoria:'DONE'}]
+ categorias:Categoria[]=[]
 
 tarefas: Tarefa[]=[]
 
 ngOnInit():void{
-    
     if(localStorage.getItem('tarefas')!=null){
     this.tarefas = JSON.parse(localStorage.getItem('tarefas'))
-
-  }
+    }
   if(localStorage.getItem('categorias')!=null){
     this.categorias = JSON.parse(localStorage.getItem('categorias'))
     console.log(this.categorias)
