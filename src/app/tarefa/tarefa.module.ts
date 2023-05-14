@@ -1,13 +1,12 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
+import { TarefaCoponent } from "./tarefa.component";
 import { FormsModule } from "@angular/forms";
-import { CategoriaComponent } from "./categoria.component";
 
-NgModule({
-    declarations:[CategoriaComponent],
+
+@NgModule ({
+    declarations:[TarefaCoponent],
     imports:[CommonModule,FormsModule],
-    exports:[CategoriaComponent],
+    exports:[TarefaCoponent]
 })
-export class CategoriaModules {
-
-}
+export class TarefaModule{}

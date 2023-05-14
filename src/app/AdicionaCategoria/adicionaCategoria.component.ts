@@ -3,29 +3,27 @@ interface Categoria{
     categoria:string
 }
 @Component({
-    selector:'categoria',
-    templateUrl:'./categoria.component.html'
+    selector:'adiciona-categoria',
+    templateUrl:'./adicionaCategoria.component.html'
 })
-export class CategoriaComponent{
+export class AdicionaCategoriaComponent{
 categorias:Categoria[]=[]
 nomeCategoria:string =''
-@Output()
-adicionar=new EventEmitter()
 
-    
-
-    adicionarCategoria():void{
+    ngOnInit():void{
         if(JSON.parse(localStorage.getItem('categorias'))!=null){
-            this.categorias =JSON.parse(localStorage.getItem('categorias'))
+            this.categorias = JSON.parse(localStorage.getItem('categorias'))
         }
-           
+    }
+
+    adicionarCategoria():void{         
         console.log(this.nomeCategoria)
-         this.adicionar.emit(this.nomeCategoria)
          const categoria: Categoria={
             categoria: this.nomeCategoria
          }
          this.categorias.push(categoria)
          localStorage.setItem('categorias',JSON.stringify(this.categorias))
+         this.nomeCategoria=''
     }
     
 }

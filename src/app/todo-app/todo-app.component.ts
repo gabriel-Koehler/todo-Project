@@ -14,7 +14,6 @@ interface Tarefa{
     styleUrls:['./todo-app.component.css']
 })
 export class TodoAppComponent{
-      @Input() public adicionaCategoria:string
   titulo:string=''
   categoria:string =''
   categoriaAtualizada:string 
@@ -25,18 +24,22 @@ tarefa: Tarefa={
  descricao: this.descricao
 }
  categorias:Categoria[]=[]
-
+ 
 tarefas: Tarefa[]=[]
 
 ngOnInit():void{
+     
     if(localStorage.getItem('tarefas')!=null){
     this.tarefas = JSON.parse(localStorage.getItem('tarefas'))
     }
-  if(localStorage.getItem('categorias')!=null){
-    this.categorias = JSON.parse(localStorage.getItem('categorias'))
+    if(localStorage.getItem('categorias')==null ){
+      this.categorias.push({categoria: 'TODO'},{categoria: 'DOING'},{categoria: 'DONE'})
+      console.log(this.categorias)
+      localStorage.setItem('categorias',JSON.stringify(this.categorias));  
+    } else if(localStorage.getItem('categorias')!=null){
+    this.categorias = (JSON.parse(localStorage.getItem('categorias')))
     console.log(this.categorias)
   }
-  
 }
  cadastrarTarefa():void{
 
@@ -49,6 +52,7 @@ ngOnInit():void{
     console.log(this.categoria)
     this.titulo=''
     this.categoria=''
+    this.descricao=''
     localStorage.setItem('tarefas',JSON.stringify(this.tarefas));
     
  }
@@ -56,13 +60,17 @@ ngOnInit():void{
     this.tarefas.splice(indice,1)
     localStorage.setItem('tarefas',JSON.stringify(this.tarefas));
  }
- atualizar(indice,categoriaa):void{
+ atualizar(valor):void{
   this.tarefas=JSON.parse(localStorage.getItem('tarefas'))
-  console.log(categoriaa)
-  this.tarefas[indice].categoria=categoriaa
+  console.log(valor.indice)
+  this.tarefas[valor.indice].categoria=valor.categoriaNova
   localStorage.setItem('tarefas',JSON.stringify(this.tarefas))
  }
  adicionarCategoria(categoria):void{
     console.log(categoria+'todo-app')
+ }
+ removerCategoria(id):void{
+  this.categorias.splice(id,1)
+  localStorage.setItem('categorias',JSON.stringify(this.categorias))
  }
 }

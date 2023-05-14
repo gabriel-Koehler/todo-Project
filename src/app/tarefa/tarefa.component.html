@@ -1,0 +1,20 @@
+
+<!-- <div *ngIf="tarefa.categoria==categoria.categoria">
+        <h4>tarefa: {{tarefa.titulo}}</h4>
+        <p>descricao: {{tarefa.descricao}}</p>
+        <p>categoria:</p>
+        <select name="categTarefa" id="categTarefa" (change)="atualizar(indice,tarefa.categoria)"
+          [(ngModel)]='tarefa.categoria'>
+          <option *ngFor="let categoria of categorias;index as indice">{{categoria.categoria}}</option>
+        </select>
+        <button (click)="removerTarefa(indice)">REMOVER</button>
+      </div> -->
+<div>
+    <h4>Tarefa: {{nomeTarefa}}</h4>
+    <p>Descrição: {{descricaoTarefa}}</p>
+    <p>categoria: </p>
+    <select (change)="categoriaMudou(indice,tfCategoria)" [(ngModel)]="tfCategoria">
+        <option *ngFor="let categoria of categorias">{{categoria.categoria}}</option>
+    </select>
+    <button (click)="clickRemover(indice)">Remover</button>
+</div>

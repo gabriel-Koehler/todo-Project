@@ -4,14 +4,15 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.modules';
-import { CategoriaModules } from '../app/categoria/categoria.module';
-import { CategoriaComponent } from '../app/categoria/categoria.component';
+import { AdicionaCategoriaComponent} from './AdicionaCategoria/adicionaCategoria.component';
 import { TodoAppComponent } from './todo-app/todo-app.component';
+import { TarefaCoponent } from './tarefa/tarefa.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CategoriaComponent,
+    AdicionaCategoriaComponent,
+    TarefaCoponent,
     TodoAppComponent
   ],
   imports: [
