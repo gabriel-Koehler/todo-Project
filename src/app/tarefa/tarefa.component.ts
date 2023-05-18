@@ -17,13 +17,16 @@ export class TarefaCoponent{
     @Input() indice:number
     @Output() onMudou=new EventEmitter()
     @Output() onRemove=new EventEmitter()
+    @Output() onDescricao=new EventEmitter()
 
-    categoriaMudou(indice,categoria):void{
-        console.log({indice: indice,categoriaNova: categoria})
-        this.onMudou.emit({indice: indice,categoriaNova: categoria})
+    categoriaMudou(indice,categoriaNova):void{
+        this.onMudou.emit({indice: indice,categoria: categoriaNova})
     }
     clickRemover(indice):void{
         console.log(indice)
         this.onRemove.emit(indice)
+    }
+    descricaoMudou(indice,descricaoNova):void{
+        this.onDescricao.emit({indice: indice,descricaoTarefa: descricaoNova})
     }
 }

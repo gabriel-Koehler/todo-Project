@@ -1,10 +1,16 @@
 *{
     box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+}
+.todo-app{
+    height: 100vh;
+    background-color: #ffe3d6;
 }
 
 #adicionarTask{
     height: 40px;
-    background-color: blueviolet;
+    background-color: #b6dcfe;
     display: flex;
     justify-content: center;
     align-items: center;

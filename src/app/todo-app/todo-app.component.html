@@ -1,22 +1,25 @@
+<div class="todo-app">
 <div id="adicionarTask">
   <label>Insira um Titulo</label>
-  <input placeholder="Titulo" [(ngModel)]="titulo" />
+  <input style="background-color: #b6dcfe;" placeholder="Titulo" [(ngModel)]="titulo" />
   <label for="">Descrição</label>
-  <input type="text" [(ngModel)]="descricao">
+  <input style="background-color: #b6dcfe;" type="text" [(ngModel)]="descricao">
   <label for="">Categoria</label>
   <br>
-  <select name="categoria" id="categ" (adicionar)="adicionarCategoria($event)" [(ngModel)]="categoria">
+  <select style="background-color: #b6dcfe;" 
+  name="categoria" 
+  id="categ" 
+  (adicionar)="adicionarCategoria($event)"
+   [(ngModel)]="categoria">
     <option *ngFor="let categoria of categorias;index as indice">{{categoria.categoria}}</option>
   </select>
   <button (click)="cadastrarTarefa()">Adicionar tarefa</button>
-  <button (click)="adicionarCategoria()"><a routerLink="/categoria">Adicionar Categoria</a></button>
 </div>
 <div class="tarefa">
-
-  <div *ngFor="let categoria of categorias" class="categorias">
+  <div *ngFor="let categoria of categorias;index as indiceCateg " class="categorias">
     <div class="titulo">
       <span>{{categoria.categoria}}</span>
-      <button (click)="removerCategoria(indice)">Excluir</button>
+      <button (click)="removerCategoria(indiceCateg)">Excluir</button>
     </div>
     <div *ngFor="let tarefa of tarefas;index as indice" class="lista">
       <div *ngIf="tarefa.categoria==categoria.categoria">
@@ -27,17 +30,11 @@
         [categorias]="categorias"
         [indice]="indice"
         (onMudou)="atualizar($event)"
-        (onRemove)="removerTarefa($event)">
+        (onRemove)="removerTarefa($event)"
+        (onDescricao)="mudarDescricao($event)">
         </tarefa-app>
-        <!-- <h4>tarefa: {{tarefa.titulo}}</h4>
-        <p>descricao: {{tarefa.descricao}}</p>
-        <p>categoria:</p>
-        <select name="categTarefa" id="categTarefa" (change)="atualizar(indice,tarefa.categoria)"
-          [(ngModel)]='tarefa.categoria'>
-          <option *ngFor="let categoria of categorias;index as indice">{{categoria.categoria}}</option>
-        </select>
-        <button (click)="removerTarefa(indice)">REMOVER</button> -->
       </div>
     </div>
   </div>
+</div>
 </div>

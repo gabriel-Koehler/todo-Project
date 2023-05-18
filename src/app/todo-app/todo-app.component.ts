@@ -31,6 +31,7 @@ ngOnInit():void{
      
     if(localStorage.getItem('tarefas')!=null){
     this.tarefas = JSON.parse(localStorage.getItem('tarefas'))
+    console.log(this.tarefas)
     }
     if(localStorage.getItem('categorias')==null ){
       this.categorias.push({categoria: 'TODO'},{categoria: 'DOING'},{categoria: 'DONE'})
@@ -63,7 +64,7 @@ ngOnInit():void{
  atualizar(valor):void{
   this.tarefas=JSON.parse(localStorage.getItem('tarefas'))
   console.log(valor.indice)
-  this.tarefas[valor.indice].categoria=valor.categoriaNova
+  this.tarefas[valor.indice].categoria=valor.categoria
   localStorage.setItem('tarefas',JSON.stringify(this.tarefas))
  }
  adicionarCategoria(categoria):void{
@@ -72,5 +73,11 @@ ngOnInit():void{
  removerCategoria(id):void{
   this.categorias.splice(id,1)
   localStorage.setItem('categorias',JSON.stringify(this.categorias))
+ }
+ mudarDescricao(valor):void{
+  this.tarefas=JSON.parse(localStorage.getItem('tarefas'))
+  console.log(valor.indice)
+  this.tarefas[valor.indice].descricao=valor.descricaoTarefa
+  localStorage.setItem('tarefas',JSON.stringify(this.tarefas))
  }
 }

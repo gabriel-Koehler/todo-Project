@@ -2,6 +2,14 @@
     margin: 0px;
 }
 header{
+    display: flex;
+    justify-content: space-between;
     height: 30px;
-    background-color: rgb(255, 0, 0);
+    background-color: #ffe3d6;
+}
+a{
+    text-decoration: none;
+}
+a:visited{
+    color: inherit;
 }
