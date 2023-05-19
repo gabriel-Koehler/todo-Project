@@ -5,7 +5,8 @@ interface Categoria{
 }
 @Component({
     selector:'adiciona-categoria',
-    templateUrl:'./adicionaCategoria.component.html'
+    templateUrl:'./adicionaCategoria.component.html',
+    styleUrls:['./adicionaCategoria.component.css']
 })
 export class AdicionaCategoriaComponent{
 categorias:Categoria[]=[]

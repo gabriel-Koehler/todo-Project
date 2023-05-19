@@ -1,0 +1,9 @@
+.adicionaCategoria{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.categorias{
+    width: 20%;
+
+}

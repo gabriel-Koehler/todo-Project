@@ -29,7 +29,7 @@ tarefa: Tarefa={
 tarefas: Tarefa[]=[]
 
 ngOnInit():void{
- 
+    
     if(localStorage.getItem('tarefas')!=null){
     this.tarefas = JSON.parse(localStorage.getItem('tarefas'))
     console.log(this.tarefas)

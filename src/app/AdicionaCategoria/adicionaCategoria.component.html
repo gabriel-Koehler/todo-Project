@@ -1,7 +1,15 @@
+<div class="adicionaCategoria">
 <label for="">Adicionar Uma categoria: </label>
 <input type="text" placeholder="Categoria Nova" [(ngModel)]="nomeCategoria">
 <input type="color" [(ngModel)]="corEscolhida">
 <button (click)="adicionarCategoria()">Adicionar</button>
-<div *ngFor="let categoria of categorias">
-    {{categoria.categoria}} 
+<div class="categorias"
+*ngFor="let categoria of categorias;index as indiceCateg" 
+[style.backgroundColor]="categoria.corFundo"
+>
+<categoria-app  
+[tituloCategoria]="categoria.categoria"
+[indiceCategoria]="indiceCateg"
+></categoria-app>
+</div>
 </div>

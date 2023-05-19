@@ -1,3 +1,7 @@
 button:hover{
     cursor: pointer;
 }
+.categoria{
+    display: flex;
+    justify-content: space-around;
+}
