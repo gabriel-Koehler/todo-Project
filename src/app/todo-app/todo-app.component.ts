@@ -6,7 +6,8 @@ interface Tarefa{
     descricao:string
   }
   interface Categoria{
-    categoria:string
+    categoria:string,
+    corFundo:string
   }
 @Component({
     selector:'todo-app',
@@ -28,13 +29,18 @@ tarefa: Tarefa={
 tarefas: Tarefa[]=[]
 
 ngOnInit():void{
-     
+ 
     if(localStorage.getItem('tarefas')!=null){
     this.tarefas = JSON.parse(localStorage.getItem('tarefas'))
     console.log(this.tarefas)
     }
+    
     if(localStorage.getItem('categorias')==null ){
-      this.categorias.push({categoria: 'TODO'},{categoria: 'DOING'},{categoria: 'DONE'})
+      this.categorias.push(
+      {categoria: 'TODO',corFundo:''},
+      {categoria: 'DOING',corFundo:''},
+      {categoria: 'DONE',corFundo:''}
+      )
       console.log(this.categorias)
       localStorage.setItem('categorias',JSON.stringify(this.categorias));  
     } else if(localStorage.getItem('categorias')!=null){

@@ -1,5 +1,6 @@
 <label for="">Adicionar Uma categoria: </label>
 <input type="text" placeholder="Categoria Nova" [(ngModel)]="nomeCategoria">
+<input type="color" [(ngModel)]="corEscolhida">
 <button (click)="adicionarCategoria()">Adicionar</button>
 <div *ngFor="let categoria of categorias">
     {{categoria.categoria}} 

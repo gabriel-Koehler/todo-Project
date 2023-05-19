@@ -10,7 +10,18 @@ import { Component,OnInit} from '@angular/core';
 
 export class AppComponent{
   title = 'todo-app';
-  
+  rotaTdApp:boolean=false
+  rotaAddCategoria:boolean=true
+
+  rotaAdicionaCategoria():void{
+    this.rotaTdApp=true
+    this.rotaAddCategoria=false
+  }
+  rotaTodoApp():void{
+    this.rotaTdApp=false
+    this.rotaAddCategoria=true
+  }
+
 }
 
 

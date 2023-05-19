@@ -16,14 +16,22 @@
   <button (click)="cadastrarTarefa()">Adicionar tarefa</button>
 </div>
 <div class="tarefa">
-  <div *ngFor="let categoria of categorias;index as indiceCateg " class="categorias">
-    <div class="titulo">
+  <div 
+  *ngFor="let categoria of categorias;
+  index as indiceCateg " 
+  [style.backgroundColor]="categoria.corFundo"
+  class="categorias" >
+    <categoria-app 
+    [tituloCategoria]="categoria.categoria"
+    [indiceCategoria]="indiceCateg"
+    (onRemoveCateg)="removerCategoria($event)">
+    </categoria-app>
+    <!-- <div class="titulo">
       <span>{{categoria.categoria}}</span>
-      <button (click)="removerCategoria(indiceCateg)">Excluir</button>
-    </div>
+      <button (click)="removerCategoria(indiceCateg)">Remover</button>
+    </div> -->
     <div *ngFor="let tarefa of tarefas;index as indice" class="lista">
-      <div *ngIf="tarefa.categoria==categoria.categoria">
-        <tarefa-app 
+        <tarefa-app *ngIf="tarefa.categoria==categoria.categoria" 
         [nomeTarefa]="tarefa.titulo"
         [descricaoTarefa]="tarefa.descricao"
         [tfCategoria]="categoria.categoria"
@@ -33,8 +41,7 @@
         (onRemove)="removerTarefa($event)"
         (onDescricao)="mudarDescricao($event)">
         </tarefa-app>
-      </div>
-    </div>
+          </div>
   </div>
 </div>
 </div>

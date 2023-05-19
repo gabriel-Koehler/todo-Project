@@ -7,13 +7,15 @@ import { AppRoutingModule } from './app-routing.modules';
 import { AdicionaCategoriaComponent} from './AdicionaCategoria/adicionaCategoria.component';
 import { TodoAppComponent } from './todo-app/todo-app.component';
 import { TarefaCoponent } from './tarefa/tarefa.component';
+import { CategoriaComponent } from './categoria/categoria.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AdicionaCategoriaComponent,
     TarefaCoponent,
-    TodoAppComponent
+    TodoAppComponent,
+    CategoriaComponent
   ],
   imports: [
     BrowserModule,
