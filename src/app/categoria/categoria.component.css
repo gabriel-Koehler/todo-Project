@@ -1,3 +1,6 @@
+*{
+  background-color: inherit;  
+}
 button:hover{
     cursor: pointer;
 }

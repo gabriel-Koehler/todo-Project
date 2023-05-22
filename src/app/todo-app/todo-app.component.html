@@ -21,15 +21,13 @@
   index as indiceCateg " 
   [style.backgroundColor]="categoria.corFundo"
   class="categorias" >
-    <categoria-app 
+
+    <categoria-app
     [tituloCategoria]="categoria.categoria"
     [indiceCategoria]="indiceCateg"
     (onRemoveCateg)="removerCategoria($event)">
     </categoria-app>
-    <!-- <div class="titulo">
-      <span>{{categoria.categoria}}</span>
-      <button (click)="removerCategoria(indiceCateg)">Remover</button>
-    </div> -->
+  
     <div *ngFor="let tarefa of tarefas;index as indice" class="lista">
         <tarefa-app *ngIf="tarefa.categoria==categoria.categoria" 
         [nomeTarefa]="tarefa.titulo"

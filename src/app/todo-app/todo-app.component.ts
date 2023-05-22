@@ -1,4 +1,5 @@
 import { Component, Input } from "@angular/core";
+import { forEach } from "@angular/router/src/utils/collection";
 
 interface Tarefa{
     titulo:string,
@@ -77,8 +78,16 @@ ngOnInit():void{
     console.log(categoria+'todo-app')
  }
  removerCategoria(id):void{
+  for(let tarefa of this.tarefas){
+    console.log(this.tarefas)
+    if(tarefa.categoria==this.categorias[id].categoria){
+      this.tarefas.splice(this.tarefas.indexOf(tarefa),1)
+    }
+  }
+  
   this.categorias.splice(id,1)
   localStorage.setItem('categorias',JSON.stringify(this.categorias))
+  localStorage.setItem('tarefas',JSON.stringify(this.tarefas))
  }
  mudarDescricao(valor):void{
   this.tarefas=JSON.parse(localStorage.getItem('tarefas'))
