@@ -1,4 +1,4 @@
-import { Component, Input } from "@angular/core";
+import { asNativeElements, Component, Input } from "@angular/core";
 import { forEach } from "@angular/router/src/utils/collection";
 
 interface Tarefa{
@@ -25,6 +25,9 @@ tarefa: Tarefa={
  categoria: this.categoria,
  descricao: this.descricao
 }
+indiceTarefaTransicao:number
+categoriaTransicao:string
+
  categorias:Categoria[]=[]
  
 tarefas: Tarefa[]=[]
@@ -89,10 +92,27 @@ ngOnInit():void{
   localStorage.setItem('categorias',JSON.stringify(this.categorias))
   localStorage.setItem('tarefas',JSON.stringify(this.tarefas))
  }
+
  mudarDescricao(valor):void{
   this.tarefas=JSON.parse(localStorage.getItem('tarefas'))
   console.log(valor.indice)
   this.tarefas[valor.indice].descricao=valor.descricaoTarefa
   localStorage.setItem('tarefas',JSON.stringify(this.tarefas))
+ }
+ dragTarefa(c,t):void{
+  console.log(c)
+  this.indiceTarefaTransicao=t
+  this.categoriaTransicao=c
+  console.log(t)
+  console.log('drag')
+ }
+ dropTarefa(c):void{
+   console.log(c)
+   this.tarefas[this.indiceTarefaTransicao].categoria=c
+   localStorage.setItem('tarefas',JSON.stringify(this.tarefas))
+   console.log('drop')
+ }
+ dragovrTarefa():void{
+  event.preventDefault()
  }
 }

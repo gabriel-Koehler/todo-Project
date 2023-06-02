@@ -7,28 +7,29 @@
   <label for="">Categoria</label>
   <br>
   <select style="background-color: #b6dcfe;" 
-  name="categoria" 
-  id="categ" 
-  (adicionar)="adicionarCategoria($event)"
-   [(ngModel)]="categoria">
+    name="categoria" 
+    id="categ" 
+    (adicionar)="adicionarCategoria($event)"
+    [(ngModel)]="categoria">
     <option *ngFor="let categoria of categorias;index as indice">{{categoria.categoria}}</option>
   </select>
   <button (click)="cadastrarTarefa()">Adicionar tarefa</button>
 </div>
 <div class="tarefa">
   <div 
-  *ngFor="let categoria of categorias;
-  index as indiceCateg " 
-  [style.backgroundColor]="categoria.corFundo"
-  class="categorias" >
+    *ngFor="let categoria of categorias;
+    index as indiceCateg " 
+    id="{{categoria.categoria}}"
+    [style.backgroundColor]="categoria.corFundo"
+    class="categorias" >
 
     <categoria-app
-    [tituloCategoria]="categoria.categoria"
-    [indiceCategoria]="indiceCateg"
-    (onRemoveCateg)="removerCategoria($event)">
+      [tituloCategoria]="categoria.categoria"
+      [indiceCategoria]="indiceCateg"
+      (onRemoveCateg)="removerCategoria($event)">
     </categoria-app>
   
-    <div *ngFor="let tarefa of tarefas;index as indice" class="lista">
+    <div *ngFor="let tarefa of tarefas;index as indice" (dragstart)="dragTarefa(categoria.categoria,indice)" (dragover)="dragovrTarefa()" (drop)="dropTarefa(categoria.categoria)" draggable="true" class="lista dropZone" >
         <tarefa-app *ngIf="tarefa.categoria==categoria.categoria" 
         [nomeTarefa]="tarefa.titulo"
         [descricaoTarefa]="tarefa.descricao"
@@ -39,7 +40,7 @@
         (onRemove)="removerTarefa($event)"
         (onDescricao)="mudarDescricao($event)">
         </tarefa-app>
-          </div>
+    </div>
   </div>
 </div>
 </div>
