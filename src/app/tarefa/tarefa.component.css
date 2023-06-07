@@ -4,3 +4,7 @@
 button:hover{
     cursor: pointer;
 }
+
+.teste {
+  border: solid black 1px;
+}

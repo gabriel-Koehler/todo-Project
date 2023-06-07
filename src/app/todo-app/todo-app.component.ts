@@ -26,7 +26,8 @@ tarefa: Tarefa={
  descricao: this.descricao
 }
 indiceTarefaTransicao:number
-categoriaTransicao:string
+categoriaTransicao
+tarefaTransicao:Tarefa
 
  categorias:Categoria[]=[]
  
@@ -99,17 +100,30 @@ ngOnInit():void{
   this.tarefas[valor.indice].descricao=valor.descricaoTarefa
   localStorage.setItem('tarefas',JSON.stringify(this.tarefas))
  }
- dragTarefa(c,t):void{
+ dragTarefa(c,t, tarefaD):void{
   console.log(c)
   this.indiceTarefaTransicao=t
   this.categoriaTransicao=c
   console.log(t)
   console.log('drag')
+  this.tarefaTransicao = tarefaD;
  }
- dropTarefa(c):void{
-   console.log(c)
-   this.tarefas[this.indiceTarefaTransicao].categoria=c
-   localStorage.setItem('tarefas',JSON.stringify(this.tarefas))
+ getCategoriaTarefa(c, event: Event):void{
+  this.tarefaTransicao.categoria = c;
+ }
+ dropTarefa(i, event: Event):void{
+  event.preventDefault();
+   console.log(i)
+   
+   for (const i of this.tarefas) {
+     if (i == this.tarefaTransicao) {
+       this.tarefas.splice(this.tarefas.indexOf(i), 1)
+      }
+    }
+    
+    this.tarefas.splice(i, 0, this.tarefaTransicao)
+    
+    localStorage.setItem('tarefas',JSON.stringify(this.tarefas))
    console.log('drop')
  }
  dragovrTarefa():void{

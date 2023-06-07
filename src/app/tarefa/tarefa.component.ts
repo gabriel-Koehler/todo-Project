@@ -6,7 +6,7 @@ interface Categoria{
 @Component({
     selector:'tarefa-app',
     templateUrl:'./tarefa.component.html',
-    styles:['./tarefa.component.css']
+    styleUrls:['./tarefa.component.css']
 })
 export class TarefaCoponent{
 

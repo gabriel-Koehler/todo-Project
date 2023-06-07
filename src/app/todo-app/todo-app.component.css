@@ -34,7 +34,9 @@ button:hover{
     flex-direction: column;
     min-width: 170px;
     max-width:  100%;
-    height: min-content;
-    border: 1px solid black;
+    /* height: min-content; */
+    /* border: 1px solid black; */
 }
+
+
 
