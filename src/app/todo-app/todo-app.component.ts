@@ -25,8 +25,7 @@ tarefa: Tarefa={
  categoria: this.categoria,
  descricao: this.descricao
 }
-indiceTarefaTransicao:number
-categoriaTransicao
+
 tarefaTransicao:Tarefa
 
  categorias:Categoria[]=[]
@@ -55,6 +54,9 @@ ngOnInit():void{
 }
  cadastrarTarefa():void{
 
+    if( this.titulo=='' || this.categoria=='' || this.descricao==''){
+      alert('Insira em todos os campos primeiro para cadastrar')
+    }else{
     const tarefa: Tarefa={
       titulo: this.titulo,
       categoria: this.categoria,
@@ -65,18 +67,18 @@ ngOnInit():void{
     this.titulo=''
     this.categoria=''
     this.descricao=''
-    localStorage.setItem('tarefas',JSON.stringify(this.tarefas));
-    
+    this.addTarefaLocalStorage()
+    }
  }
  removerTarefa(indice):void{
     this.tarefas.splice(indice,1)
-    localStorage.setItem('tarefas',JSON.stringify(this.tarefas));
+    this.addTarefaLocalStorage()
  }
  atualizar(valor):void{
   this.tarefas=JSON.parse(localStorage.getItem('tarefas'))
   console.log(valor.indice)
   this.tarefas[valor.indice].categoria=valor.categoria
-  localStorage.setItem('tarefas',JSON.stringify(this.tarefas))
+  this.addTarefaLocalStorage()
  }
  adicionarCategoria(categoria):void{
     console.log(categoria+'todo-app')
@@ -91,30 +93,27 @@ ngOnInit():void{
   
   this.categorias.splice(id,1)
   localStorage.setItem('categorias',JSON.stringify(this.categorias))
-  localStorage.setItem('tarefas',JSON.stringify(this.tarefas))
+  this.addTarefaLocalStorage()
  }
 
  mudarDescricao(valor):void{
   this.tarefas=JSON.parse(localStorage.getItem('tarefas'))
   console.log(valor.indice)
   this.tarefas[valor.indice].descricao=valor.descricaoTarefa
-  localStorage.setItem('tarefas',JSON.stringify(this.tarefas))
+  this.addTarefaLocalStorage()
  }
- dragTarefa(c,t, tarefaD):void{
-  console.log(c)
-  this.indiceTarefaTransicao=t
-  this.categoriaTransicao=c
-  console.log(t)
+
+ dragTarefa(tarefaD):void{
   console.log('drag')
   this.tarefaTransicao = tarefaD;
  }
  getCategoriaTarefa(c, event: Event):void{
-  this.tarefaTransicao.categoria = c;
+  this.tarefas[this.tarefas.indexOf(this.tarefaTransicao)].categoria=c
+  this.addTarefaLocalStorage()
  }
  dropTarefa(i, event: Event):void{
-  event.preventDefault();
+  
    console.log(i)
-   
    for (const i of this.tarefas) {
      if (i == this.tarefaTransicao) {
        this.tarefas.splice(this.tarefas.indexOf(i), 1)
@@ -123,10 +122,15 @@ ngOnInit():void{
     
     this.tarefas.splice(i, 0, this.tarefaTransicao)
     
-    localStorage.setItem('tarefas',JSON.stringify(this.tarefas))
+    this.addTarefaLocalStorage()
+
    console.log('drop')
  }
  dragovrTarefa():void{
   event.preventDefault()
+ }
+
+ addTarefaLocalStorage():void{
+   localStorage.setItem('tarefas',JSON.stringify(this.tarefas))
  }
 }

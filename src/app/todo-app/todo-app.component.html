@@ -11,27 +11,39 @@
     id="categ" 
     (adicionar)="adicionarCategoria($event)"
     [(ngModel)]="categoria">
-    <option *ngFor="let categoria of categorias;index as indice">{{categoria.categoria}}</option>
+    <option *ngFor="let categoria of categorias;index as indice">
+      {{categoria.categoria}}
+    </option>
   </select>
-  <button (click)="cadastrarTarefa()">Adicionar tarefa</button>
+  <button 
+  (click)="cadastrarTarefa()">
+    Adicionar tarefa
+  </button>
+
 </div>
+
 <div class="tarefa">
-  <div (dragover)="dragovrTarefa()" (drop)="getCategoriaTarefa(categoria.categoria, $event)"
-    *ngFor="let categoria of categorias;
-    index as indiceCateg " 
-    id="{{categoria.categoria}}"
-    [style.backgroundColor]="categoria.corFundo"
-    class="categorias" >
+
+  <div (dragover)="dragovrTarefa()" 
+  (drop)="getCategoriaTarefa(categoria.categoria, $event)"
+  *ngFor="let categoria of categorias;index as indiceCateg " 
+  id="{{categoria.categoria}}"
+  class="categorias" >
 
     <categoria-app
+      [style.backgroundColor]="categoria.corFundo"
       [tituloCategoria]="categoria.categoria"
       [indiceCategoria]="indiceCateg"
       (onRemoveCateg)="removerCategoria($event)">
     </categoria-app>
   
-    <div *ngFor="let tarefa of tarefas;index as indice" (dragstart)="dragTarefa(categoria.categoria,indice, tarefa)"
-     (dragover)="dragovrTarefa()" (drop)="dropTarefa(indice, $event)" 
-    draggable="true" class="lista dropZone" >
+    <div *ngFor="let tarefa of tarefas;index as indice" 
+    (dragstart)="dragTarefa(tarefa)"
+    (dragover)="dragovrTarefa()" 
+    (drop)="dropTarefa(indice, $event)" 
+    draggable="true" 
+    class="lista dropZone" >
+
         <tarefa-app *ngIf="tarefa.categoria==categoria.categoria" 
         [nomeTarefa]="tarefa.titulo"
         [descricaoTarefa]="tarefa.descricao"
@@ -43,6 +55,7 @@
         (onDescricao)="mudarDescricao($event)">
         </tarefa-app>
     </div>
+
   </div>
 </div>
 </div>

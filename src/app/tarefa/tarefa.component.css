@@ -5,6 +5,9 @@ button:hover{
     cursor: pointer;
 }
 
-.teste {
+.tarefa {
+  margin-top: 8px;
+  padding: 5px;
   border: solid black 1px;
+  border-radius: 10px;
 }

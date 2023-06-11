@@ -27,6 +27,7 @@ button:hover{
     flex-wrap: wrap;
     justify-content: center;
     gap: 10px;
+
 }
 .categorias{
     display: flex;
@@ -37,6 +38,7 @@ button:hover{
     /* height: min-content; */
     /* border: 1px solid black; */
 }
+
 
 
 
