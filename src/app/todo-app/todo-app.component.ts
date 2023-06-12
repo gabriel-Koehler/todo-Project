@@ -116,12 +116,14 @@ ngOnInit():void{
    console.log(i)
    for (const i of this.tarefas) {
      if (i == this.tarefaTransicao) {
+      console.log(this.tarefas)
        this.tarefas.splice(this.tarefas.indexOf(i), 1)
+      console.log(this.tarefas)
       }
     }
-    
+    console.log(this.tarefas)
     this.tarefas.splice(i, 0, this.tarefaTransicao)
-    
+    console.log(this.tarefas)
     this.addTarefaLocalStorage()
 
    console.log('drop')
