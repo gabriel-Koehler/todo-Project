@@ -1,6 +1,7 @@
 import { Component, NgModule } from "@angular/core";
 import { Route, RouterModule } from "@angular/router";
 import { AdicionaCategoriaComponent } from "./AdicionaCategoria/adicionaCategoria.component";
+import { PropriedadeComponent } from "./propriedade/propriedade.component";
 import { TodoAppComponent } from "./todo-app/todo-app.component";
 
 const rotas: Route[]=[
@@ -11,6 +12,10 @@ const rotas: Route[]=[
     {
         path:'categoria',
         component: AdicionaCategoriaComponent
+    },
+    {
+        path:'propriedade',
+        component: PropriedadeComponent
     },
     {
         path:'',

@@ -8,6 +8,7 @@ import { AdicionaCategoriaComponent} from './AdicionaCategoria/adicionaCategoria
 import { TodoAppComponent } from './todo-app/todo-app.component';
 import { TarefaCoponent } from './tarefa/tarefa.component';
 import { CategoriaComponent } from './categoria/categoria.component';
+import { PropriedadeComponent } from './propriedade/propriedade.component';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { CategoriaComponent } from './categoria/categoria.component';
     AdicionaCategoriaComponent,
     TarefaCoponent,
     TodoAppComponent,
-    CategoriaComponent
+    CategoriaComponent,
+    PropriedadeComponent
   ],
   imports: [
     BrowserModule,
