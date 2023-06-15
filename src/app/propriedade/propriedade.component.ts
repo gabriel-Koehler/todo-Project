@@ -27,15 +27,22 @@ interface Categoria{
 export class PropriedadeComponent{
     nomePropriedade:string
     tipoDeDado:string | number='Tipo de dado'
-    arrayPropriedade:Categoria[]
+    arrayPropriedade:Categoria[]=[]
     escolhidoSelecao:boolean=false
+    
+    propriedades:Propriedade[]=[{
+        nomePropriedade:'Nome',
+        tipoDeDado:'text',
+        
+        array: []
+    }]
 
     completar:boolean= true
 
     propriedade:Propriedade
     mudarOpcao():void{
         console.log('aaa')
-        if(this.tipoDeDado=='Select'){
+        if(this.tipoDeDado=='select'){
 
             this.completar=false
             this.escolhidoSelecao=true
@@ -52,8 +59,9 @@ export class PropriedadeComponent{
             tipoDeDado: this.tipoDeDado,
             array:this.arrayPropriedade
         }
-
-        
+        console.log(this.propriedade)
+        this.propriedades.push(this.propriedade)
+        localStorage.setItem('propriedades',JSON.stringify(this.propriedades))
 
     }
     adicionarCategoriaPropriedade(categoria):void{

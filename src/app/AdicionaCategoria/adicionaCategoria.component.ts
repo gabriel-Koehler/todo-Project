@@ -46,9 +46,6 @@ tarefas:Tarefa[]=[]
          this.adicionarCategorias.emit(
             categoria
             )
-         this.categorias.push(categoria)
-
-         localStorage.setItem('categorias',JSON.stringify(this.categorias))
          this.nomeCategoria=''
          this.corEscolhida='#ffff'
 
@@ -60,8 +57,8 @@ tarefas:Tarefa[]=[]
               this.tarefas.splice(this.tarefas.indexOf(tarefa),1)
             }
           }
-          
-  this.categorias.splice(id,1)
+
+  this.arrayPropriedadePrint.splice(id,1)
   localStorage.setItem('categorias',JSON.stringify(this.categorias))
   localStorage.setItem('tarefas',JSON.stringify(this.tarefas))
     }

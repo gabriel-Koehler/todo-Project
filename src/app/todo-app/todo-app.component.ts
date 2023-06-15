@@ -2,14 +2,17 @@ import { asNativeElements, Component, Input } from "@angular/core";
 import { forEach } from "@angular/router/src/utils/collection";
 
 interface Tarefa{
-    titulo:string,
-    categoria:string,
-    descricao:string
+    arrayPropriedade:Propriedade[]
   }
   interface Categoria{
     categoria:string,
     corFundo:string
   }
+  interface Propriedade{
+    nomePropriedade:string,
+    tipoDeDado:string | number,
+    array:Categoria[]
+}
 @Component({
     selector:'todo-app',
     templateUrl: './todo-app.component.html',
@@ -21,14 +24,13 @@ export class TodoAppComponent{
   categoriaAtualizada:string 
   descricao:string=''
 tarefa: Tarefa={
- titulo: this.titulo,
- categoria: this.categoria,
- descricao: this.descricao
+ arrayPropriedade: []
 }
+
 
 tarefaTransicao:Tarefa
 
- categorias:Categoria[]=[]
+categorias:Categoria[]=[]
  
 tarefas: Tarefa[]=[]
 
@@ -58,10 +60,9 @@ ngOnInit():void{
       alert('Insira em todos os campos primeiro para cadastrar')
     }else{
     const tarefa: Tarefa={
-      titulo: this.titulo,
-      categoria: this.categoria,
-      descricao: this.descricao
+      arrayPropriedade: //a colocar
     }
+    
     this.tarefas.push(tarefa)
     console.log(this.categoria)
     this.titulo=''

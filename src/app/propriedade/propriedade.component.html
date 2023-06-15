@@ -1,9 +1,9 @@
 <div class="propriedade">
     <input type="text" placeholder="Nome da Propriedade" [(ngModel)]="nomePropriedade">
     <select (change)="mudarOpcao()" [(ngModel)]="tipoDeDado">
-        <option value="String">Texto</option>
-        <option value="Number">Número</option>
-        <option value="Select">Seleção</option>
+        <option value="text">Texto</option>
+        <option value="number">Número</option>
+        <option value="select">Seleção</option>
     </select> 
     <adiciona-categoria (adicionarCategorias)="adicionarCategoriaPropriedade($event)"
     [arrayPropriedadePrint]="arrayPropriedade"
