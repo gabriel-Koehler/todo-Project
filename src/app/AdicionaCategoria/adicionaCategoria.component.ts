@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from "@angular/core";
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 interface Categoria{
     categoria:string,
     corFundo:string
@@ -14,10 +14,17 @@ interface Tarefa{
     styleUrls:['./adicionaCategoria.component.css']
 })
 export class AdicionaCategoriaComponent{
+    @Output() adicionarCategorias=new EventEmitter()
+    @Input() arrayPropriedadePrint:Categoria[]
+
 categorias:Categoria[]=[]
+
 nomeCategoria:string =''
+
 corEscolhida:string=''
- tarefas:Tarefa[]=[]
+ 
+tarefas:Tarefa[]=[]
+
     ngOnInit():void{
         if(JSON.parse(localStorage.getItem('categorias'))!=null){
             this.categorias = JSON.parse(localStorage.getItem('categorias'))
@@ -28,17 +35,23 @@ corEscolhida:string=''
             }
     }
 
-    adicionarCategoria():void{         
+    adicionarCategoria():void{
+        
         console.log(this.nomeCategoria)
         console.log(this.corEscolhida)
          const categoria: Categoria={
             categoria: this.nomeCategoria,
             corFundo: this.corEscolhida
          }
+         this.adicionarCategorias.emit(
+            categoria
+            )
          this.categorias.push(categoria)
+
          localStorage.setItem('categorias',JSON.stringify(this.categorias))
          this.nomeCategoria=''
          this.corEscolhida='#ffff'
+
     }
     removeCategoria(id):void{
         for(let tarefa of this.tarefas){
