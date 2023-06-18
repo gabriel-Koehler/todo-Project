@@ -32,8 +32,7 @@ export class PropriedadeComponent{
     
     propriedades:Propriedade[]=[{
         nomePropriedade:'Nome',
-        tipoDeDado:'text',
-        
+        tipoDeDado:'text',      
         array: []
     }]
 
@@ -67,7 +66,7 @@ export class PropriedadeComponent{
     adicionarCategoriaPropriedade(categoria):void{
         console.log(categoria)
         this.arrayPropriedade.push(categoria)
-        if(this.arrayPropriedade!=[]){
+        if(this.arrayPropriedade!=null){
                 this.completar=true
         }
     }

@@ -1,15 +1,32 @@
 
 <div class="tarefa">
-    <h4>Tarefa: {{nomeTarefa}}</h4>
-    <p>Descrição:</p>
-    <textarea  
+    <label *ngFor="let propriedade of propriedades">
+        <button *ngIf="!valoresEscolhidosTarefa[propriedades.indexOf(propriedade)]" 
+        (click)="adicionarInput(propriedades.indexOf(propriedade))">
+          +
+        </button>
+        <input *ngIf="valoresEscolhidosTarefa[propriedades.indexOf(propriedade)] 
+                      && propriedade.array==[]" 
+        [type]="propriedade.tipoDeDado"
+        placeholder="{{propriedade.nomePropriedade}}"
+        [(ngModel)]="valoresTarefa[propriedades.indexOf(propriedade)]"
+        >
+        <select *ngIf="valoresEscolhidosTarefa[propriedades.indexOf(propriedade)]
+                      && propriedade.array!=[]"  
+                (mouseout)="categoriaMudou(indice,tfCategoria)"
+                style="background-color: #b6dcfe;"  
+                id="categ" 
+                [(ngModel)]="tfCategoria">
+            <option *ngFor="let categoria of propriedade.array;index as indice">
+              {{categoria.categoria}}
+            </option>
+        </select>
+      </label>
+    <!-- <textarea  
     cols="auto" 
     rows="auto"
     style="resize: none;max-width: 190px; max-height: 100px;"
-    (change)="descricaoMudou(indice,descricaoTarefa)" [(ngModel)]="descricaoTarefa"></textarea>
-    <p>categoria: </p>
-    <select (mouseout)="categoriaMudou(indice,tfCategoria)"  [(ngModel)]="tfCategoria">
-        <option *ngFor="let categoria of categorias">{{categoria.categoria}}</option>
-    </select>
+    (change)="descricaoMudou(indice,descricaoTarefa)" [(ngModel)]="descricaoTarefa"></textarea> -->
+    
     <button (click)="clickRemover(indice)">Remover</button>
 </div>

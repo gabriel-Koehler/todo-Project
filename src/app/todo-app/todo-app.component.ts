@@ -1,125 +1,172 @@
 import { asNativeElements, Component, Input } from "@angular/core";
 import { forEach } from "@angular/router/src/utils/collection";
 
-interface Tarefa{
-    arrayPropriedade:Propriedade[]
-  }
-  interface Categoria{
-    categoria:string,
-    corFundo:string
-  }
-  interface Propriedade{
-    nomePropriedade:string,
-    tipoDeDado:string | number,
-    array:Categoria[]
+interface Tarefa {
+  arrayPropriedade: Propriedade[]
+  arrayValorPropriedade: any[]
+  arrayPropriedadeEscolhida: boolean[]
+}
+interface Categoria {
+  categoria: string,
+  corFundo: string
+}
+interface Propriedade {
+  nomePropriedade: string,
+  tipoDeDado: string | number,
+  array: Categoria[]
 }
 @Component({
-    selector:'todo-app',
-    templateUrl: './todo-app.component.html',
-    styleUrls:['./todo-app.component.css']
+  selector: 'todo-app',
+  templateUrl: './todo-app.component.html',
+  styleUrls: ['./todo-app.component.css']
 })
-export class TodoAppComponent{
-  titulo:string=''
-  categoria:string =''
-  categoriaAtualizada:string 
-  descricao:string=''
-tarefa: Tarefa={
- arrayPropriedade: []
-}
+export class TodoAppComponent {
+  titulo: string = ''
+  categoria: string = ''
+  categoriaAtualizada: string
+  descricao: string = ''
+  tarefa: Tarefa = {
+    arrayPropriedade: [],
+    arrayValorPropriedade: [],
+    arrayPropriedadeEscolhida: []
+  }
 
+  propriedadeAMostrar:Propriedade[]
 
-tarefaTransicao:Tarefa
+  tarefaTransicao: Tarefa
 
-categorias:Categoria[]=[]
- 
-tarefas: Tarefa[]=[]
+  propriedades: Propriedade[]
 
-ngOnInit():void{
-    
-    if(localStorage.getItem('tarefas')!=null){
-    this.tarefas = JSON.parse(localStorage.getItem('tarefas'))
-    console.log(this.tarefas)
+  valoresTarefa: any[] = []
+
+  valoresEscolhidosTarefa: boolean[] = []
+
+  categorias: Categoria[] = []
+
+  tarefas: Tarefa[] = []
+
+  ngOnInit(): void {
+
+    if (localStorage.getItem('tarefas') != null) {
+      this.tarefas = JSON.parse(localStorage.getItem('tarefas'))
+      console.log(this.tarefas)
     }
-    
-    if(localStorage.getItem('categorias')==null ){
+
+    if (localStorage.getItem('propriedades') != null) {
+      this.propriedades = JSON.parse(localStorage.getItem('propriedades'))
+      this.valoresTarefa.length = this.propriedades.length
+      this.valoresEscolhidosTarefa.length = this.propriedades.length
+    }
+
+    for (let valor of this.valoresEscolhidosTarefa) {
+      if(this.valoresEscolhidosTarefa.indexOf(valor)==0){
+        valor=true
+      }else{valor = false}
+      
+    }
+
+    if (localStorage.getItem('categorias') == null) {
       this.categorias.push(
-      {categoria: 'TODO',corFundo:''},
-      {categoria: 'DOING',corFundo:''},
-      {categoria: 'DONE',corFundo:''}
+        { categoria: 'TODO', corFundo: '' },
+        { categoria: 'DOING', corFundo: '' },
+        { categoria: 'DONE', corFundo: '' }
       )
       console.log(this.categorias)
-      localStorage.setItem('categorias',JSON.stringify(this.categorias));  
-    } else if(localStorage.getItem('categorias')!=null){
-    this.categorias = (JSON.parse(localStorage.getItem('categorias')))
-    console.log(this.categorias)
-  }
-}
- cadastrarTarefa():void{
+      localStorage.setItem('categorias', JSON.stringify(this.categorias));
+    } else if (localStorage.getItem('categorias') != null) {
+      this.categorias = (JSON.parse(localStorage.getItem('categorias')))
+      console.log(this.categorias)
+    }
 
-    if( this.titulo=='' || this.categoria=='' || this.descricao==''){
+  }
+
+  //cadastro e edição de tarefas
+
+  adicionarInput(i):void{
+    this.valoresEscolhidosTarefa[i]=true
+  }
+
+  cadastrarTarefa(): void {
+    console.log(this.valoresEscolhidosTarefa)
       alert('Insira em todos os campos primeiro para cadastrar')
-    }else{
-    const tarefa: Tarefa={
-      arrayPropriedade: //a colocar
+      const tarefa: Tarefa = {
+        arrayPropriedade: this.propriedades,
+        arrayValorPropriedade: this.valoresTarefa,
+        arrayPropriedadeEscolhida: this.valoresEscolhidosTarefa
+      }
+
+      this.tarefas.push(tarefa)
+      console.log(this.categoria)
+
+      for (let valor of this.valoresTarefa) {
+        valor = '' || 0
+      }
+
+      for (let valor of this.valoresEscolhidosTarefa) {
+      if(this.valoresEscolhidosTarefa.indexOf(valor)==0){
+        valor=true
+      }else{valor = false}
     }
+      this.addTarefaLocalStorage()
     
-    this.tarefas.push(tarefa)
-    console.log(this.categoria)
-    this.titulo=''
-    this.categoria=''
-    this.descricao=''
-    this.addTarefaLocalStorage()
-    }
- }
- removerTarefa(indice):void{
-    this.tarefas.splice(indice,1)
-    this.addTarefaLocalStorage()
- }
- atualizar(valor):void{
-  this.tarefas=JSON.parse(localStorage.getItem('tarefas'))
-  console.log(valor.indice)
-  this.tarefas[valor.indice].categoria=valor.categoria
-  this.addTarefaLocalStorage()
- }
- adicionarCategoria(categoria):void{
-    console.log(categoria+'todo-app')
- }
- removerCategoria(id):void{
-  for(let tarefa of this.tarefas){
-    console.log(this.tarefas)
-    if(tarefa.categoria==this.categorias[id].categoria){
-      this.tarefas.splice(this.tarefas.indexOf(tarefa),1)
-    }
   }
-  
-  this.categorias.splice(id,1)
-  localStorage.setItem('categorias',JSON.stringify(this.categorias))
-  this.addTarefaLocalStorage()
- }
 
- mudarDescricao(valor):void{
-  this.tarefas=JSON.parse(localStorage.getItem('tarefas'))
-  console.log(valor.indice)
-  this.tarefas[valor.indice].descricao=valor.descricaoTarefa
-  this.addTarefaLocalStorage()
- }
+  removerTarefa(indice): void {
+    this.tarefas.splice(indice, 1)
+    this.addTarefaLocalStorage()
+  }
 
- dragTarefa(tarefaD):void{
-  console.log('drag')
-  this.tarefaTransicao = tarefaD;
- }
- getCategoriaTarefa(c, event: Event):void{
-  this.tarefas[this.tarefas.indexOf(this.tarefaTransicao)].categoria=c
-  this.addTarefaLocalStorage()
- }
- dropTarefa(i, event: Event):void{
+  atualizar(valor): void {
+    this.tarefas = JSON.parse(localStorage.getItem('tarefas'))
+    console.log(valor.indice)
+    this.tarefas[valor.indice].categoria = valor.categoria
+    this.addTarefaLocalStorage()
+  }
+
   
-   console.log(i)
-   for (const i of this.tarefas) {
-     if (i == this.tarefaTransicao) {
+
+  removerCategoria(id): void {
+    for (let tarefa of this.tarefas) {
       console.log(this.tarefas)
-       this.tarefas.splice(this.tarefas.indexOf(i), 1)
-      console.log(this.tarefas)
+      if (tarefa.categoria == this.categorias[id].categoria) {
+        this.tarefas.splice(this.tarefas.indexOf(tarefa), 1)
+      }
+    }
+
+    this.categorias.splice(id, 1)
+    localStorage.setItem('categorias', JSON.stringify(this.categorias))
+    this.addTarefaLocalStorage()
+  }
+
+  mudarDescricao(valor): void {
+    this.tarefas = JSON.parse(localStorage.getItem('tarefas'))
+    console.log(valor.indice)
+    this.tarefas[valor.indice].descricao = valor.descricaoTarefa
+    this.addTarefaLocalStorage()
+  }
+  //cadastro e edição de tarefas
+
+
+  // drag de tarefas
+
+  dragTarefa(tarefaD): void {
+    console.log('drag')
+    this.tarefaTransicao = tarefaD;
+  }
+
+  getCategoriaTarefa(c, event: Event): void {
+    this.tarefas[this.tarefas.indexOf(this.tarefaTransicao)].categoria = c
+    this.addTarefaLocalStorage()
+  }
+
+  dropTarefa(i, event: Event): void {
+
+    console.log(i)
+    for (const i of this.tarefas) {
+      if (i == this.tarefaTransicao) {
+        console.log(this.tarefas)
+        this.tarefas.splice(this.tarefas.indexOf(i), 1)
+        console.log(this.tarefas)
       }
     }
     console.log(this.tarefas)
@@ -127,13 +174,17 @@ ngOnInit():void{
     console.log(this.tarefas)
     this.addTarefaLocalStorage()
 
-   console.log('drop')
- }
- dragovrTarefa():void{
-  event.preventDefault()
- }
+    console.log('drop')
+  }
 
- addTarefaLocalStorage():void{
-   localStorage.setItem('tarefas',JSON.stringify(this.tarefas))
- }
+  dragovrTarefa(): void {
+    event.preventDefault()
+  }
+
+  addTarefaLocalStorage(): void {
+    localStorage.setItem('tarefas', JSON.stringify(this.tarefas))
+  }
+  // drag de tarefas
+
+
 }

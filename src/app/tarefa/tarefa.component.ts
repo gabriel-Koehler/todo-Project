@@ -10,11 +10,10 @@ interface Categoria{
 })
 export class TarefaCoponent{
 
-    @Input() nomeTarefa:string
-    @Input() descricaoTarefa:string
     @Input() tfCategoria:string
-    @Input() categorias:Array<Categoria>
+    @Input() categorias:Categoria[]
     @Input() indice:number
+    @Input() valores:any[]
     @Output() onMudou=new EventEmitter()
     @Output() onRemove=new EventEmitter()
     @Output() onDescricao=new EventEmitter()

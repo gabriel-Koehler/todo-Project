@@ -1,20 +1,27 @@
 <div class="todo-app">
 <div id="adicionarTask">
-  <label>Insira um Titulo</label>
-  <input style="background-color: #b6dcfe;" placeholder="Titulo" [(ngModel)]="titulo" />
-  <label for="">Descrição</label>
-  <input style="background-color: #b6dcfe;" type="text" [(ngModel)]="descricao">
-  <label for="">Categoria</label>
-  <br>
-  <select style="background-color: #b6dcfe;" 
-    name="categoria" 
-    id="categ" 
-    (adicionar)="adicionarCategoria($event)"
-    [(ngModel)]="categoria">
-    <option *ngFor="let categoria of categorias;index as indice">
-      {{categoria.categoria}}
-    </option>
-  </select>
+  <label *ngFor="let propriedade of propriedades">
+    <button *ngIf="!valoresEscolhidosTarefa[propriedades.indexOf(propriedade)]" 
+    (click)="adicionarInput(propriedades.indexOf(propriedade))">
+      +
+    </button>
+    <input *ngIf="valoresEscolhidosTarefa[propriedades.indexOf(propriedade)] 
+                  && propriedade.array==[]" 
+    [type]="propriedade.tipoDeDado"
+    placeholder="{{propriedade.nomePropriedade}}"
+    [(ngModel)]="valoresTarefa[propriedades.indexOf(propriedade)]"
+    >
+    <select *ngIf="valoresEscolhidosTarefa[propriedades.indexOf(propriedade)]
+                  && propriedade.array!=[]"  
+
+            style="background-color: #b6dcfe;"  
+            id="categ" 
+            [(ngModel)]="valoresTarefa[propriedades.indexOf(propriedade)]">
+        <option *ngFor="let categoria of propriedade.array;index as indice">
+          {{categoria.categoria}}
+        </option>
+    </select>
+  </label>
   <button 
   (click)="cadastrarTarefa()">
     Adicionar tarefa
@@ -22,11 +29,20 @@
 
 </div>
 
+<div>
+  <select [(ngModel)]="propriedadeAMostrar">
+    <option *ngFor="let propriedade of propriedades;index as indice">
+      <div *ngIf="propriedade.array!=[]" >{{propriedade.nomePropriedade}}</div>
+    </option>
+  </select>
+</div>
+
 <div class="tarefa">
 
-  <div (dragover)="dragovrTarefa()" 
+  <div 
+  *ngFor="let categoria of propriedadeAMostrar.array;index as indiceCateg " 
+  (dragover)="dragovrTarefa()" 
   (drop)="getCategoriaTarefa(categoria.categoria, $event)"
-  *ngFor="let categoria of categorias;index as indiceCateg " 
   id="{{categoria.categoria}}"
   class="categorias" >
 
@@ -44,11 +60,11 @@
     draggable="true" 
     class="lista dropZone" >
 
-        <tarefa-app *ngIf="tarefa.categoria==categoria.categoria" 
-        [nomeTarefa]="tarefa.titulo"
-        [descricaoTarefa]="tarefa.descricao"
+        <tarefa-app 
+        *ngIf="tarefa.arrayValorPropriedade.indexOf(propriedadeAMostrar)==categoria.categoria" 
+        [valores]="tarefa.arrayValorPropriedade"
         [tfCategoria]="categoria.categoria"
-        [categorias]="categorias"
+        [categorias]="propriedadeAMostrar.array"
         [indice]="indice"
         (onMudou)="atualizar($event)"
         (onRemove)="removerTarefa($event)"
