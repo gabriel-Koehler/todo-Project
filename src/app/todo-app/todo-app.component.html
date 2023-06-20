@@ -61,14 +61,17 @@
     class="lista dropZone" >
 
         <tarefa-app 
-        *ngIf="tarefa.arrayValorPropriedade.indexOf(propriedadeAMostrar)==categoria.categoria" 
+        *ngIf="tarefa.arrayValorPropriedade
+        [tarefa.arrayValorPropriedade.indexOf(propriedadeAMostrar)]
+        ==
+        categoria.categoria" 
+        [propriedadesEscolhidas]="tarefa.arrayPropriedadeEscolhida"
         [valores]="tarefa.arrayValorPropriedade"
-        [tfCategoria]="categoria.categoria"
-        [categorias]="propriedadeAMostrar.array"
+        [propriedaes]="tarefa.arrayPropriedade"
         [indice]="indice"
         (onMudou)="atualizar($event)"
         (onRemove)="removerTarefa($event)"
-        (onDescricao)="mudarDescricao($event)">
+        (onDescricao)="mudar($event)">
         </tarefa-app>
     </div>
 

@@ -2,6 +2,11 @@ import { Component,Input,Output,EventEmitter } from "@angular/core";
 interface Categoria{
     categoria:string
 }
+interface Propriedade {
+    nomePropriedade: string,
+    tipoDeDado: string | number,
+    array: Categoria[]
+  }
 
 @Component({
     selector:'tarefa-app',
@@ -10,22 +15,22 @@ interface Categoria{
 })
 export class TarefaCoponent{
 
-    @Input() tfCategoria:string
-    @Input() categorias:Categoria[]
+    @Input() propriedades:Propriedade[]
+    @Input() propriedadesEscolhidas:boolean[]
     @Input() indice:number
     @Input() valores:any[]
     @Output() onMudou=new EventEmitter()
     @Output() onRemove=new EventEmitter()
     @Output() onDescricao=new EventEmitter()
 
-    categoriaMudou(indice,categoriaNova):void{
-        this.onMudou.emit({indice: indice,categoria: categoriaNova})
+    categoriaMudou(indice,categoriaNova,propriedadeMudada):void{
+        this.onMudou.emit({indice: indice,categoria: categoriaNova,propriedadeMudada: propriedadeMudada})
     }
     clickRemover(indice):void{
         console.log(indice)
         this.onRemove.emit(indice)
     }
-    descricaoMudou(indice,descricaoNova):void{
-        this.onDescricao.emit({indice: indice,descricaoTarefa: descricaoNova})
+    inputMudou(indice,valorNovo,propriedadeMudada):void{
+        this.onDescricao.emit({indice: indice,valorTarefa: valorNovo,propriedadeMudada: propriedadeMudada})
     }
 }

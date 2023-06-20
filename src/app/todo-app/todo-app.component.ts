@@ -1,5 +1,5 @@
 import { asNativeElements, Component, Input } from "@angular/core";
-import { forEach } from "@angular/router/src/utils/collection";
+
 
 interface Tarefa {
   arrayPropriedade: Propriedade[]
@@ -31,7 +31,7 @@ export class TodoAppComponent {
     arrayPropriedadeEscolhida: []
   }
 
-  propriedadeAMostrar:Propriedade[]
+  propriedadeAMostrar:Propriedade
 
   tarefaTransicao: Tarefa
 
@@ -41,7 +41,7 @@ export class TodoAppComponent {
 
   valoresEscolhidosTarefa: boolean[] = []
 
-  categorias: Categoria[] = []
+ 
 
   tarefas: Tarefa[] = []
 
@@ -65,18 +65,18 @@ export class TodoAppComponent {
       
     }
 
-    if (localStorage.getItem('categorias') == null) {
-      this.categorias.push(
-        { categoria: 'TODO', corFundo: '' },
-        { categoria: 'DOING', corFundo: '' },
-        { categoria: 'DONE', corFundo: '' }
-      )
-      console.log(this.categorias)
-      localStorage.setItem('categorias', JSON.stringify(this.categorias));
-    } else if (localStorage.getItem('categorias') != null) {
-      this.categorias = (JSON.parse(localStorage.getItem('categorias')))
-      console.log(this.categorias)
-    }
+    // if (localStorage.getItem('categorias') == null) {
+    //   this.categorias.push(
+    //     { categoria: 'TODO', corFundo: '' },
+    //     { categoria: 'DOING', corFundo: '' },
+    //     { categoria: 'DONE', corFundo: '' }
+    //   )
+    //   console.log(this.categorias)
+    //   localStorage.setItem('categorias', JSON.stringify(this.categorias));
+    // } else if (localStorage.getItem('categorias') != null) {
+    //   this.categorias = (JSON.parse(localStorage.getItem('categorias')))
+    //   console.log(this.categorias)
+    // }
 
   }
 
@@ -119,7 +119,19 @@ export class TodoAppComponent {
   atualizar(valor): void {
     this.tarefas = JSON.parse(localStorage.getItem('tarefas'))
     console.log(valor.indice)
-    this.tarefas[valor.indice].categoria = valor.categoria
+    console.log(
+      this.tarefas[valor.indice]
+    .arrayValorPropriedade[this.tarefas[valor.indice]
+    .arrayValorPropriedade.indexOf(valor.categoria)]
+    )
+    console.log(
+      this.tarefas[valor.indice]
+    .arrayValorPropriedade[this.tarefas[valor.indice]
+    .arrayValorPropriedade.indexOf(valor.propriedadeMudada)]
+    )
+    this.tarefas[valor.indice]
+    .arrayValorPropriedade[this.tarefas[valor.indice]
+    .arrayValorPropriedade.indexOf(valor.categoria)] = valor.categoria
     this.addTarefaLocalStorage()
   }
 
@@ -128,20 +140,26 @@ export class TodoAppComponent {
   removerCategoria(id): void {
     for (let tarefa of this.tarefas) {
       console.log(this.tarefas)
-      if (tarefa.categoria == this.categorias[id].categoria) {
+      if (tarefa.arrayValorPropriedade
+        [this.propriedades.indexOf(this.propriedadeAMostrar)] 
+        ==
+        this.propriedadeAMostrar.array[id].categoria) {
+
         this.tarefas.splice(this.tarefas.indexOf(tarefa), 1)
       }
     }
 
-    this.categorias.splice(id, 1)
-    localStorage.setItem('categorias', JSON.stringify(this.categorias))
+    this.propriedades
+    [this.propriedades.indexOf(this.propriedadeAMostrar)].array.splice(id, 1)
+    localStorage.setItem('propriedade', JSON.stringify(this.propriedades))
     this.addTarefaLocalStorage()
   }
 
-  mudarDescricao(valor): void {
+  mudarInput(valor): void {
     this.tarefas = JSON.parse(localStorage.getItem('tarefas'))
     console.log(valor.indice)
-    this.tarefas[valor.indice].descricao = valor.descricaoTarefa
+    this.tarefas[valor.indice].
+    arrayValorPropriedade[valor.propriedadeMudada] = valor.valorTarefa
     this.addTarefaLocalStorage()
   }
   //cadastro e edição de tarefas
@@ -155,7 +173,9 @@ export class TodoAppComponent {
   }
 
   getCategoriaTarefa(c, event: Event): void {
-    this.tarefas[this.tarefas.indexOf(this.tarefaTransicao)].categoria = c
+    this.tarefas[this.tarefas.indexOf(this.tarefaTransicao)]
+    .arrayValorPropriedade[this.tarefas[this.tarefas.indexOf(this.tarefaTransicao)]
+    .arrayPropriedade.indexOf(this.propriedadeAMostrar)] = c
     this.addTarefaLocalStorage()
   }
 

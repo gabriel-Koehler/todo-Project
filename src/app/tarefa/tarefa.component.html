@@ -1,22 +1,23 @@
 
 <div class="tarefa">
     <label *ngFor="let propriedade of propriedades">
-        <button *ngIf="!valoresEscolhidosTarefa[propriedades.indexOf(propriedade)]" 
+        <button *ngIf="!propriedadesEscolhidas[propriedades.indexOf(propriedade)]" 
         (click)="adicionarInput(propriedades.indexOf(propriedade))">
           +
         </button>
-        <input *ngIf="valoresEscolhidosTarefa[propriedades.indexOf(propriedade)] 
+        <input *ngIf="propriedadesEscolhidas[propriedades.indexOf(propriedade)] 
                       && propriedade.array==[]" 
+        (change)="inputMudou(indice,valores[propriedades.indexOf(propriedade)],propriedades.indexOf(propriedade))"
         [type]="propriedade.tipoDeDado"
         placeholder="{{propriedade.nomePropriedade}}"
-        [(ngModel)]="valoresTarefa[propriedades.indexOf(propriedade)]"
+        [(ngModel)]="valores[propriedades.indexOf(propriedade)]"
         >
-        <select *ngIf="valoresEscolhidosTarefa[propriedades.indexOf(propriedade)]
+        <select *ngIf="propriedadesEscolhidas[propriedades.indexOf(propriedade)]
                       && propriedade.array!=[]"  
-                (mouseout)="categoriaMudou(indice,tfCategoria)"
+                (mouseout)="categoriaMudou(indice,valores[propriedades.indexOf(propriedade)],propriedades.indexOf(propriedade))"
                 style="background-color: #b6dcfe;"  
                 id="categ" 
-                [(ngModel)]="tfCategoria">
+                [(ngModel)]="valores[propriedades.indexOf(propriedade)]">
             <option *ngFor="let categoria of propriedade.array;index as indice">
               {{categoria.categoria}}
             </option>
