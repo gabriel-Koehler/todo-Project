@@ -1,4 +1,4 @@
-import { Component,Input,Output,EventEmitter } from "@angular/core";
+import { Component,Input,Output,EventEmitter,OnInit } from "@angular/core";
 interface Categoria{
     categoria:string
 }
@@ -22,6 +22,10 @@ export class TarefaCoponent{
     @Output() onMudou=new EventEmitter()
     @Output() onRemove=new EventEmitter()
     @Output() onDescricao=new EventEmitter()
+
+    ngOnInit():void{
+        
+    }
 
     categoriaMudou(indice,categoriaNova,propriedadeMudada):void{
         this.onMudou.emit({indice: indice,categoria: categoriaNova,propriedadeMudada: propriedadeMudada})

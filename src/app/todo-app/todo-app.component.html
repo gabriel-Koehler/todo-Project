@@ -1,22 +1,23 @@
 <div class="todo-app">
 <div id="adicionarTask">
-  <label *ngFor="let propriedade of propriedades">
-    <button *ngIf="!valoresEscolhidosTarefa[propriedades.indexOf(propriedade)]" 
-    (click)="adicionarInput(propriedades.indexOf(propriedade))">
+  <label *ngFor="let propriedade of propriedades; index as indice">
+    
+    <button *ngIf="!valoresEscolhidosTarefa[indice]" 
+    (click)="adicionarInput(indice)">
       +
     </button>
-    <input *ngIf="valoresEscolhidosTarefa[propriedades.indexOf(propriedade)] 
+    <input *ngIf="valoresEscolhidosTarefa[indice] 
                   && propriedade.array==[]" 
     [type]="propriedade.tipoDeDado"
     placeholder="{{propriedade.nomePropriedade}}"
-    [(ngModel)]="valoresTarefa[propriedades.indexOf(propriedade)]"
+    [(ngModel)]="valoresTarefa[indice]"
     >
-    <select *ngIf="valoresEscolhidosTarefa[propriedades.indexOf(propriedade)]
+    <select *ngIf="valoresEscolhidosTarefa[indice]
                   && propriedade.array!=[]"  
 
             style="background-color: #b6dcfe;"  
             id="categ" 
-            [(ngModel)]="valoresTarefa[propriedades.indexOf(propriedade)]">
+            [(ngModel)]="valoresTarefa[indice]">
         <option *ngFor="let categoria of propriedade.array;index as indice">
           {{categoria.categoria}}
         </option>
@@ -31,7 +32,7 @@
 
 <div>
   <select [(ngModel)]="propriedadeAMostrar">
-    <option *ngFor="let propriedade of propriedades;index as indice">
+    <option  [ngV alue]="propriedade" *ngFor="let propriedade of propriedades;index as indice">
       <div *ngIf="propriedade.array!=[]" >{{propriedade.nomePropriedade}}</div>
     </option>
   </select>
@@ -40,7 +41,7 @@
 <div class="tarefa">
 
   <div 
-  *ngFor="let categoria of propriedadeAMostrar.array;index as indiceCateg " 
+  *ngFor="let categoria of propriedadeAMostrar.array;index as indiceCateg" 
   (dragover)="dragovrTarefa()" 
   (drop)="getCategoriaTarefa(categoria.categoria, $event)"
   id="{{categoria.categoria}}"
@@ -67,7 +68,7 @@
         categoria.categoria" 
         [propriedadesEscolhidas]="tarefa.arrayPropriedadeEscolhida"
         [valores]="tarefa.arrayValorPropriedade"
-        [propriedaes]="tarefa.arrayPropriedade"
+        [propriedades]="tarefa.arrayPropriedade"
         [indice]="indice"
         (onMudou)="atualizar($event)"
         (onRemove)="removerTarefa($event)"

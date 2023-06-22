@@ -46,7 +46,12 @@ export class TodoAppComponent {
   tarefas: Tarefa[] = []
 
   ngOnInit(): void {
-
+    for (let valor of this.valoresEscolhidosTarefa) {
+      console.log(valor)
+      valor = false
+      console.log(valor)
+    
+  }
     if (localStorage.getItem('tarefas') != null) {
       this.tarefas = JSON.parse(localStorage.getItem('tarefas'))
       console.log(this.tarefas)
@@ -54,17 +59,18 @@ export class TodoAppComponent {
 
     if (localStorage.getItem('propriedades') != null) {
       this.propriedades = JSON.parse(localStorage.getItem('propriedades'))
+      console.log(this.propriedades)
+      console.log(this.propriedades.length)
+      console.log(this.valoresTarefa.length)
+      console.log(this.valoresEscolhidosTarefa.length)
       this.valoresTarefa.length = this.propriedades.length
       this.valoresEscolhidosTarefa.length = this.propriedades.length
+      console.log(this.valoresTarefa.length)
+      console.log(this.valoresEscolhidosTarefa.length)
     }
 
-    for (let valor of this.valoresEscolhidosTarefa) {
-      if(this.valoresEscolhidosTarefa.indexOf(valor)==0){
-        valor=true
-      }else{valor = false}
-      
-    }
-
+    
+    console.log(this.valoresEscolhidosTarefa  )
     // if (localStorage.getItem('categorias') == null) {
     //   this.categorias.push(
     //     { categoria: 'TODO', corFundo: '' },
@@ -83,7 +89,9 @@ export class TodoAppComponent {
   //cadastro e edição de tarefas
 
   adicionarInput(i):void{
+    console.log(this.valoresEscolhidosTarefa[i])
     this.valoresEscolhidosTarefa[i]=true
+    console.log(this.valoresEscolhidosTarefa[i])
   }
 
   cadastrarTarefa(): void {
