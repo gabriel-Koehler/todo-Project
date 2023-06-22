@@ -3,15 +3,16 @@
   <label *ngFor="let propriedade of propriedades; index as indice">
     
     <button *ngIf="!valoresEscolhidosTarefa[indice]" 
-    (click)="adicionarInput(indice)">
+            (click)="adicionarInput(indice)">
       +
     </button>
+
     <input *ngIf="valoresEscolhidosTarefa[indice] 
-                  && propriedade.array==[]" 
+            && propriedade.array==[]" 
     [type]="propriedade.tipoDeDado"
-    placeholder="{{propriedade.nomePropriedade}}"
-    [(ngModel)]="valoresTarefa[indice]"
-    >
+    placeholder="propriedade.nomePropriedade"
+    [(ngModel)]="valoresTarefa[indice]">
+
     <select *ngIf="valoresEscolhidosTarefa[indice]
                   && propriedade.array!=[]"  
 
@@ -32,8 +33,8 @@
 
 <div>
   <select [(ngModel)]="propriedadeAMostrar">
-    <option  [ngV alue]="propriedade" *ngFor="let propriedade of propriedades;index as indice">
-      <div *ngIf="propriedade.array!=[]" >{{propriedade.nomePropriedade}}</div>
+    <option [ngValue]="propriedade" *ngFor="let propriedade of propriedades;index as indice">
+      <div *ngIf="propriedade.array!=[]">{{propriedade.nomePropriedade}}</div>
     </option>
   </select>
 </div>

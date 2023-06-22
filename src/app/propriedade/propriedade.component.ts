@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component,OnInit } from "@angular/core";
 
 interface Propriedade{
     nomePropriedade:string,
@@ -39,6 +39,11 @@ export class PropriedadeComponent{
     completar:boolean= true
 
     propriedade:Propriedade
+
+    ngOnInit(){
+        localStorage.setItem('propriedades',JSON.stringify(this.propriedades))
+    }
+
     mudarOpcao():void{
         console.log('aaa')
         if(this.tipoDeDado=='select'){

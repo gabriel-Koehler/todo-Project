@@ -4,7 +4,7 @@ import { asNativeElements, Component, Input } from "@angular/core";
 interface Tarefa {
   arrayPropriedade: Propriedade[]
   arrayValorPropriedade: any[]
-  arrayPropriedadeEscolhida: boolean[]
+  valoresEscolhidosPropriedade: boolean[]
 }
 interface Categoria {
   categoria: string,
@@ -28,7 +28,7 @@ export class TodoAppComponent {
   tarefa: Tarefa = {
     arrayPropriedade: [],
     arrayValorPropriedade: [],
-    arrayPropriedadeEscolhida: []
+    valoresEscolhidosPropriedade: []
   }
 
   propriedadeAMostrar:Propriedade
@@ -100,7 +100,7 @@ export class TodoAppComponent {
       const tarefa: Tarefa = {
         arrayPropriedade: this.propriedades,
         arrayValorPropriedade: this.valoresTarefa,
-        arrayPropriedadeEscolhida: this.valoresEscolhidosTarefa
+        valoresEscolhidosPropriedade:this.valoresEscolhidosTarefa
       }
 
       this.tarefas.push(tarefa)
