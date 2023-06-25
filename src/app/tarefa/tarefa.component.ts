@@ -21,6 +21,7 @@ interface Propriedade {
 export class TarefaCoponent implements OnInit{
     @Input() tarefa:Tarefa
     @Input() indiceTarefa:number
+    @Output() onMudouVisibilidade=new EventEmitter()
     @Output() onMudou=new EventEmitter()
     @Output() onRemove=new EventEmitter()
     @Output() onDescricao=new EventEmitter()
@@ -31,16 +32,14 @@ export class TarefaCoponent implements OnInit{
         array: []
       }
     ngOnInit():void{
-        if(localStorage.getItem('tarefas')!=null){
-            this.tarefas=JSON.parse(localStorage.getItem('tarefas'))
-        }    
-        // console.log(this.tarefa)
-        // console.log(this.tarefas)
+    //     if(localStorage.getItem('tarefas')!=null){
+    //         this.tarefas=JSON.parse(localStorage.getItem('tarefas'))
+    //     }    
+    //     // console.log(this.tarefa)
+    //     // console.log(this.tarefas)
     }
-    adicionarInput(i): void{
-        console.log(this.tarefas[this.indiceTarefa].valoresEscolhidosPropriedade[i])
-        this.tarefas[this.indiceTarefa].valoresEscolhidosPropriedade[i]=!this.tarefas[this.indiceTarefa].valoresEscolhidosPropriedade[i]
-    this.addTarefaLocalStorage()
+    adicionarInput(i):void{  
+        this.onMudouVisibilidade.emit({indiceTarefa: this.indiceTarefa,indicePropriedadeEscolhida: i})
     }
     
 
@@ -54,7 +53,5 @@ export class TarefaCoponent implements OnInit{
     inputMudou(indice,valorNovo,propriedadeMudada):void{
         this.onDescricao.emit({indice: indice,valorTarefa: valorNovo,indicePropriedadeMudada: propriedadeMudada})
     }
-    addTarefaLocalStorage(): void {
-        localStorage.setItem('tarefas', JSON.stringify(this.tarefas))
-      }
+    
 }

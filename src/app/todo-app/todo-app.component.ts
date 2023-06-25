@@ -1,5 +1,5 @@
-import { asNativeElements, Component, Input } from "@angular/core";
-
+import {  Component, Injectable, Input } from "@angular/core";
+import { AppComponent } from "../app.component";
 
 interface Tarefa {
   arrayPropriedade: Propriedade[]
@@ -20,6 +20,7 @@ interface Propriedade {
   templateUrl: './todo-app.component.html',
   styleUrls: ['./todo-app.component.css']
 })
+@Injectable()
 export class TodoAppComponent {
   categoriaAtualizada: string
   
@@ -53,6 +54,9 @@ export class TodoAppComponent {
 
   tarefas: Tarefa[] = []
 
+  constructor(private appComponent:AppComponent){
+    
+  }
 
   ngOnInit(): void {
     
@@ -93,7 +97,10 @@ export class TodoAppComponent {
       }
       this.tarefas = JSON.parse(localStorage.getItem('tarefas'))
     }
-    
+    console.log(this.appComponent.hasCardPermission('Add'))
+    console.log(this.appComponent.hasCardPermission('MoveCard'))
+    console.log(this.appComponent.hasCardPermission('Edit'))
+
     console.log(this.valoresEscolhidosTarefa  )
     
   }
@@ -103,9 +110,11 @@ export class TodoAppComponent {
   adicionarInput(i): void{
     this.valoresEscolhidosTarefa[i]=!this.valoresEscolhidosTarefa[i]
   }
-  // removerInput(i): void{
-  //   this.valoresEscolhidosTarefa[i]=!this.valoresEscolhidosTarefa[i]
-  // }
+
+  mudarVisibilidade(i){
+    this.tarefas[i.indiceTarefa].valoresEscolhidosPropriedade[i.indicePropriedadeEscolhida]=!this.tarefas[i.indiceTarefa].valoresEscolhidosPropriedade[i.indicePropriedadeEscolhida]
+    this.addTarefaLocalStorage()
+  }
 
   cadastrarTarefa(): void {
     console.log(this.valoresEscolhidosTarefa)

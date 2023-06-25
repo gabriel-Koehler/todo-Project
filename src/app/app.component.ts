@@ -15,7 +15,7 @@ export class AppComponent{
   rotaTdApp:boolean=false
   rotaAddCategoria:boolean=true
   
-  private userId:string ='joão.silva'
+  private userId:string ='diogo.defante'
   private users:User[]=[]
   private user:User | undefined 
 
@@ -35,12 +35,16 @@ export class AppComponent{
     this.rotaAddCategoria=true
   }
   
-  private hasPermission(permission:string):boolean{
+  hasCardPermission(permission:string):boolean{
     return this.user.cardPermissions.some((cardPermission)=>{
       return cardPermission === permission
     })
   }
-  
+  hasPropertyPermission(permission:string):boolean{
+    return this.user.propertiesPermissions.some((propertiePermission)=>{
+      return propertiePermission === permission
+    })
+  }
   private getUsuarioLogado():User{
     return this.users.find((user)=>{
       return user.id===this.userId

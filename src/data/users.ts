@@ -53,7 +53,7 @@ export const users:User[] =[
      "cardPermissions":[
         "MoveCard",
         "Add",
-        "Editi",
+        "Edit",
         "Remove"
      ],
      "propertiesPermissions":[
