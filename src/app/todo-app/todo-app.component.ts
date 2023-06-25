@@ -21,101 +21,111 @@ interface Propriedade {
   styleUrls: ['./todo-app.component.css']
 })
 export class TodoAppComponent {
-  titulo: string = ''
-  categoria: string = ''
   categoriaAtualizada: string
-  descricao: string = ''
-  tarefa: Tarefa = {
-    arrayPropriedade: [],
-    arrayValorPropriedade: [],
-    valoresEscolhidosPropriedade: []
+  
+  propriedadeAMostrar:Propriedade={
+    nomePropriedade: '',
+    tipoDeDado:'',
+    array: []
   }
-
-  propriedadeAMostrar:Propriedade
-
-  tarefaTransicao: Tarefa
-
-  propriedades: Propriedade[]
+  
+  tarefaTransicao: Tarefa={
+    arrayPropriedade: [],
+  arrayValorPropriedade: [],
+  valoresEscolhidosPropriedade: [],
+  }
+  tarefaCadastrar:Tarefa
+  // tarefa: Tarefa = {
+  //   arrayPropriedade: [],
+  //   arrayValorPropriedade: [],
+  //   valoresEscolhidosPropriedade: []
+  // }
+  propriedade:Propriedade={
+  nomePropriedade: '',
+  tipoDeDado: '',
+  array: []
+  }
+  propriedades: Propriedade[]=[]
 
   valoresTarefa: any[] = []
 
   valoresEscolhidosTarefa: boolean[] = []
 
- 
-
   tarefas: Tarefa[] = []
 
-  ngOnInit(): void {
-    for (let valor of this.valoresEscolhidosTarefa) {
-      console.log(valor)
-      valor = false
-      console.log(valor)
-    
-  }
-    if (localStorage.getItem('tarefas') != null) {
-      this.tarefas = JSON.parse(localStorage.getItem('tarefas'))
-      console.log(this.tarefas)
-    }
 
+  ngOnInit(): void {
+    
     if (localStorage.getItem('propriedades') != null) {
       this.propriedades = JSON.parse(localStorage.getItem('propriedades'))
       console.log(this.propriedades)
       console.log(this.propriedades.length)
-      console.log(this.valoresTarefa.length)
-      console.log(this.valoresEscolhidosTarefa.length)
+      
       this.valoresTarefa.length = this.propriedades.length
       this.valoresEscolhidosTarefa.length = this.propriedades.length
       console.log(this.valoresTarefa.length)
       console.log(this.valoresEscolhidosTarefa.length)
+    }else{
+      this.propriedades.push({
+        nomePropriedade: 'Nome',
+        tipoDeDado: 'text',
+        array: []
+      })
+      localStorage.setItem('propriedades',JSON.stringify(this.propriedades))
     }
 
+    for (let i = 0; i < this.valoresEscolhidosTarefa.length; i++) {
+      if(i==0){
+        this.valoresEscolhidosTarefa[i]=true
+      } else{
+        this.valoresEscolhidosTarefa[i]=false
+      }
+    }
+    
+    if (localStorage.getItem('tarefas') != null) {
+      this.tarefas = JSON.parse(localStorage.getItem('tarefas'))
+      console.log(this.tarefas)
+      for(let tarefa of this.tarefas){
+        tarefa.arrayPropriedade=this.propriedades
+        tarefa.arrayValorPropriedade.length=this.propriedades.length
+        tarefa.valoresEscolhidosPropriedade.length=this.propriedades.length
+        this.addTarefaLocalStorage()
+      }
+      this.tarefas = JSON.parse(localStorage.getItem('tarefas'))
+    }
     
     console.log(this.valoresEscolhidosTarefa  )
-    // if (localStorage.getItem('categorias') == null) {
-    //   this.categorias.push(
-    //     { categoria: 'TODO', corFundo: '' },
-    //     { categoria: 'DOING', corFundo: '' },
-    //     { categoria: 'DONE', corFundo: '' }
-    //   )
-    //   console.log(this.categorias)
-    //   localStorage.setItem('categorias', JSON.stringify(this.categorias));
-    // } else if (localStorage.getItem('categorias') != null) {
-    //   this.categorias = (JSON.parse(localStorage.getItem('categorias')))
-    //   console.log(this.categorias)
-    // }
-
+    
   }
 
   //cadastro e edição de tarefas
 
-  adicionarInput(i):void{
-    console.log(this.valoresEscolhidosTarefa[i])
-    this.valoresEscolhidosTarefa[i]=true
-    console.log(this.valoresEscolhidosTarefa[i])
+  adicionarInput(i): void{
+    this.valoresEscolhidosTarefa[i]=!this.valoresEscolhidosTarefa[i]
   }
+  // removerInput(i): void{
+  //   this.valoresEscolhidosTarefa[i]=!this.valoresEscolhidosTarefa[i]
+  // }
 
   cadastrarTarefa(): void {
     console.log(this.valoresEscolhidosTarefa)
       alert('Insira em todos os campos primeiro para cadastrar')
-      const tarefa: Tarefa = {
+      console.log(this.valoresTarefa)
+      console.log(this.valoresEscolhidosTarefa)
+       const tarefaCadastrar:Tarefa = {
         arrayPropriedade: this.propriedades,
         arrayValorPropriedade: this.valoresTarefa,
-        valoresEscolhidosPropriedade:this.valoresEscolhidosTarefa
+        valoresEscolhidosPropriedade: this.valoresEscolhidosTarefa
       }
-
-      this.tarefas.push(tarefa)
-      console.log(this.categoria)
-
-      for (let valor of this.valoresTarefa) {
-        valor = '' || 0
-      }
-
-      for (let valor of this.valoresEscolhidosTarefa) {
-      if(this.valoresEscolhidosTarefa.indexOf(valor)==0){
-        valor=true
-      }else{valor = false}
-    }
-      this.addTarefaLocalStorage()
+      console.log(tarefaCadastrar) 
+      this.tarefas.push(tarefaCadastrar)
+      this.valoresTarefa=[]
+      this.valoresEscolhidosTarefa=[]
+      this.valoresTarefa.length = this.propriedades.length
+      this.valoresEscolhidosTarefa.length = this.propriedades.length
+      console.log(this.tarefas)
+ 
+      this.addTarefaLocalStorage()  
     
   }
 
@@ -124,22 +134,17 @@ export class TodoAppComponent {
     this.addTarefaLocalStorage()
   }
 
-  atualizar(valor): void {
+  atualizarCategoria(valor): void {
     this.tarefas = JSON.parse(localStorage.getItem('tarefas'))
-    console.log(valor.indice)
-    console.log(
-      this.tarefas[valor.indice]
-    .arrayValorPropriedade[this.tarefas[valor.indice]
-    .arrayValorPropriedade.indexOf(valor.categoria)]
-    )
-    console.log(
-      this.tarefas[valor.indice]
-    .arrayValorPropriedade[this.tarefas[valor.indice]
-    .arrayValorPropriedade.indexOf(valor.propriedadeMudada)]
-    )
-    this.tarefas[valor.indice]
-    .arrayValorPropriedade[this.tarefas[valor.indice]
-    .arrayValorPropriedade.indexOf(valor.categoria)] = valor.categoria
+    let idPropri:number=this.propriedades.indexOf(valor.propriedadeMudada)
+
+    console.log(idPropri+' '+valor.indice+' '+valor.categoria+' '+valor.indicePropriedadeMudada)
+    // console.log(
+    //   // this.tarefas[valor.indice].arrayValorPropriedade[this.tarefas[valor.indice].arrayValorPropriedade.indexOf(valor.categoria)]
+    // )
+    console.log(this.tarefas[valor.indice]) 
+    console.log(this.tarefas[valor.indice].arrayPropriedade[valor.indicePropriedadeMudada])
+    this.tarefas[valor.indice].arrayValorPropriedade[valor.indicePropriedadeMudada]=valor.categoria
     this.addTarefaLocalStorage()
   }
 
@@ -159,15 +164,17 @@ export class TodoAppComponent {
 
     this.propriedades
     [this.propriedades.indexOf(this.propriedadeAMostrar)].array.splice(id, 1)
-    localStorage.setItem('propriedade', JSON.stringify(this.propriedades))
+    localStorage.setItem('propriedades', JSON.stringify(this.propriedades))
     this.addTarefaLocalStorage()
   }
 
   mudarInput(valor): void {
     this.tarefas = JSON.parse(localStorage.getItem('tarefas'))
-    console.log(valor.indice)
+    console.log(valor.indice) 
+    console.log(valor.valorTarefa) 
+    console.log(valor.indicePropriedadeMudada)
     this.tarefas[valor.indice].
-    arrayValorPropriedade[valor.propriedadeMudada] = valor.valorTarefa
+    arrayValorPropriedade[valor.indicePropriedadeMudada] = valor.valorTarefa
     this.addTarefaLocalStorage()
   }
   //cadastro e edição de tarefas
@@ -178,19 +185,25 @@ export class TodoAppComponent {
   dragTarefa(tarefaD): void {
     console.log('drag')
     this.tarefaTransicao = tarefaD;
+    console.log(this.tarefaTransicao)
   }
 
   getCategoriaTarefa(c, event: Event): void {
-    this.tarefas[this.tarefas.indexOf(this.tarefaTransicao)]
-    .arrayValorPropriedade[this.tarefas[this.tarefas.indexOf(this.tarefaTransicao)]
-    .arrayPropriedade.indexOf(this.propriedadeAMostrar)] = c
+    event.preventDefault()
+    console.log(c) 
+    console.log(this.propriedadeAMostrar) 
+    let idTarefa=this.tarefas.indexOf(this.tarefaTransicao)
+    let idPropri=(this.propriedades.indexOf(this.propriedadeAMostrar))
+    console.log(idTarefa) 
+    console.log(idPropri) 
+    this.tarefas[idTarefa].arrayValorPropriedade[idPropri] = c
     this.addTarefaLocalStorage()
   }
 
   dropTarefa(i, event: Event): void {
-
+    event.preventDefault()
     console.log(i)
-    for (const i of this.tarefas) {
+    for (let i of this.tarefas) {
       if (i == this.tarefaTransicao) {
         console.log(this.tarefas)
         this.tarefas.splice(this.tarefas.indexOf(i), 1)
@@ -208,11 +221,11 @@ export class TodoAppComponent {
   dragovrTarefa(): void {
     event.preventDefault()
   }
+  // drag de tarefas
 
   addTarefaLocalStorage(): void {
     localStorage.setItem('tarefas', JSON.stringify(this.tarefas))
   }
-  // drag de tarefas
 
 
 }

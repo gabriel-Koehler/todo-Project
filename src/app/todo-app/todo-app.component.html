@@ -3,18 +3,22 @@
   <label *ngFor="let propriedade of propriedades; index as indice">
     
     <button *ngIf="!valoresEscolhidosTarefa[indice]" 
-            (click)="adicionarInput(indice)">
+            (mousedown)="adicionarInput(indice)">
       +
+    </button>
+    <button *ngIf="valoresEscolhidosTarefa[indice]" 
+            (mousedown)="adicionarInput(indice)">
+      -
     </button>
 
     <input *ngIf="valoresEscolhidosTarefa[indice] 
-            && propriedade.array==[]" 
+            && propriedade.array.length==[]" 
     [type]="propriedade.tipoDeDado"
-    placeholder="propriedade.nomePropriedade"
+    [placeholder]="propriedade.nomePropriedade"
     [(ngModel)]="valoresTarefa[indice]">
 
     <select *ngIf="valoresEscolhidosTarefa[indice]
-                  && propriedade.array!=[]"  
+                  && propriedade.array.length!=[]"  
 
             style="background-color: #b6dcfe;"  
             id="categ" 
@@ -34,7 +38,7 @@
 <div>
   <select [(ngModel)]="propriedadeAMostrar">
     <option [ngValue]="propriedade" *ngFor="let propriedade of propriedades;index as indice">
-      <div *ngIf="propriedade.array!=[]">{{propriedade.nomePropriedade}}</div>
+      <span *ngIf="propriedade.array.length!=[]">{{propriedade.nomePropriedade}}</span>
     </option>
   </select>
 </div>
@@ -61,19 +65,13 @@
     (drop)="dropTarefa(indice, $event)" 
     draggable="true" 
     class="lista dropZone" >
-
         <tarefa-app 
-        *ngIf="tarefa.arrayValorPropriedade
-        [tarefa.arrayValorPropriedade.indexOf(propriedadeAMostrar)]
-        ==
-        categoria.categoria" 
-        [propriedadesEscolhidas]="tarefa.arrayPropriedadeEscolhida"
-        [valores]="tarefa.arrayValorPropriedade"
-        [propriedades]="tarefa.arrayPropriedade"
-        [indice]="indice"
-        (onMudou)="atualizar($event)"
+        *ngIf="tarefa.arrayValorPropriedade[propriedades.indexOf(propriedadeAMostrar)]==categoria.categoria" 
+        [tarefa]="tarefa"
+        [indiceTarefa]="indice"
+        (onMudou)="atualizarCategoria($event)"
         (onRemove)="removerTarefa($event)"
-        (onDescricao)="mudar($event)">
+        (onDescricao)="mudarInput($event)">
         </tarefa-app>
     </div>
 

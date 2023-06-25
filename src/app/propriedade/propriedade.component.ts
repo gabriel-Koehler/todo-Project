@@ -30,18 +30,14 @@ export class PropriedadeComponent{
     arrayPropriedade:Categoria[]=[]
     escolhidoSelecao:boolean=false
     
-    propriedades:Propriedade[]=[{
-        nomePropriedade:'Nome',
-        tipoDeDado:'text',      
-        array: []
-    }]
+    propriedades:Propriedade[]=[]
 
     completar:boolean= true
 
     propriedade:Propriedade
 
     ngOnInit(){
-        localStorage.setItem('propriedades',JSON.stringify(this.propriedades))
+        this.propriedades=JSON.parse(localStorage.getItem('propriedades'))
     }
 
     mudarOpcao():void{
