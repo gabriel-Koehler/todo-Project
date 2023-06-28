@@ -37,8 +37,8 @@
 
 <div>
   <select [(ngModel)]="propriedadeAMostrar">
-    <option [ngValue]="propriedade" *ngFor="let propriedade of propriedades;index as indice">
-      <span *ngIf="propriedade.array.length!=[]">{{propriedade.nomePropriedade}}</span>
+    <option [ngValue]="propriedade" *ngFor="let propriedade of listaDeProPriedadesComArray()">
+    {{propriedade.nomePropriedade}}
     </option>
   </select>
 </div>

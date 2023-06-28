@@ -148,9 +148,7 @@ export class TodoAppComponent {
     let idPropri:number=this.propriedades.indexOf(valor.propriedadeMudada)
 
     console.log(idPropri+' '+valor.indice+' '+valor.categoria+' '+valor.indicePropriedadeMudada)
-    // console.log(
-    //   // this.tarefas[valor.indice].arrayValorPropriedade[this.tarefas[valor.indice].arrayValorPropriedade.indexOf(valor.categoria)]
-    // )
+    
     console.log(this.tarefas[valor.indice]) 
     console.log(this.tarefas[valor.indice].arrayPropriedade[valor.indicePropriedadeMudada])
     this.tarefas[valor.indice].arrayValorPropriedade[valor.indicePropriedadeMudada]=valor.categoria
@@ -188,6 +186,18 @@ export class TodoAppComponent {
   }
   //cadastro e edição de tarefas
 
+  //mudar pro propriedade
+    listaDeProPriedadesComArray(){
+        const propriedadesComArray:Propriedade[]=[]
+      for(let propriedade of this.propriedades){
+        if(propriedade.array.length!=0){
+          propriedadesComArray.push(propriedade)
+        }
+      }
+      return propriedadesComArray
+      }
+    
+  //
 
   // drag de tarefas
 
