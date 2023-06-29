@@ -35,7 +35,7 @@
 
 </div>
 
-<div>
+<div *ngIf="listaDeProPriedadesComArray().length!=[]">
   <select [(ngModel)]="propriedadeAMostrar">
     <option [ngValue]="propriedade" *ngFor="let propriedade of listaDeProPriedadesComArray()">
     {{propriedade.nomePropriedade}}

@@ -11,7 +11,6 @@ import { UserRepository } from 'src/repositories/user.repository';
 })
 @Injectable()
 export class AppComponent{
-  title = 'todo-app';
   rotaTdApp:boolean=false
   rotaAddCategoria:boolean=true
   

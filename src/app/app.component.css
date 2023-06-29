@@ -5,9 +5,3 @@ header{
     height: 30px;
     background-color: #ffe3d6;
 }
-a{
-    text-decoration: none;
-}
-a:visited{
-    color: inherit;
-}
