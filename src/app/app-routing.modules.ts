@@ -4,6 +4,7 @@ import { AdicionaCategoriaComponent } from "./AdicionaCategoria/adicionaCategori
 import { LoginComponent } from "./Login/login.component";
 import { PropriedadeComponent } from "./propriedade/propriedade.component";
 import { TodoAppComponent } from "./todo-app/todo-app.component";
+import { CadastroComponent } from "./Cadastro/cadastro.component";
 
 const rotas: Route[]=[
     {
@@ -21,6 +22,10 @@ const rotas: Route[]=[
     {
         path:'login-app',
         component: LoginComponent
+    },
+    {
+        path:'cadastro-app',
+        component: CadastroComponent
     },
     {
         path:'',

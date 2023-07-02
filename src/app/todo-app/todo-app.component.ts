@@ -97,9 +97,9 @@ export class TodoAppComponent {
       }
       this.tarefas = JSON.parse(localStorage.getItem('tarefas'))
     }
-    console.log(this.appComponent.hasCardPermission('Add'))
-    console.log(this.appComponent.hasCardPermission('MoveCard'))
-    console.log(this.appComponent.hasCardPermission('Edit'))
+    // console.log(this.appComponent.hasCardPermission('Add'))
+    // console.log(this.appComponent.hasCardPermission('MoveCard'))
+    // console.log(this.appComponent.hasCardPermission('Edit'))
 
     console.log(this.valoresEscolhidosTarefa  )
     

@@ -27,10 +27,16 @@ export class AppComponent{
           console.log(value)
           this.users=value
           console.log(this.users)
-          this.user=this.getUsuarioLogado()
+          
+        }
+      })
+      userRepository.getUserById(this.userId).subscribe({
+        next: (value)=>{
+          this.user=value
           console.log(this.user)
         }
       })
+      
   }
   rotaAdicionaCategoria():void{
     this.rotaTdApp=true
@@ -41,21 +47,21 @@ export class AppComponent{
     this.rotaAddCategoria=true
   }
   
-  hasCardPermission(permission:string):boolean{
-    return this.user.cardPermissions.some((cardPermission)=>{
-      return cardPermission == permission
-    })
-  }
-  hasPropertyPermission(permission:string):boolean{
-    return this.user.propertiesPermissions.some((propertiePermission)=>{
-      return propertiePermission === permission
-    })
-  }
-  private getUsuarioLogado():User{
-    return this.users.find((user)=>{
-      return user.id===this.userId
-    })
-  }
+  // hasCardPermission(permission:string):boolean{
+  //   return this.user.cardPermissions.some((cardPermission)=>{
+  //     return cardPermission == permission
+  //   })
+  // }
+  // hasPropertyPermission(permission:string):boolean{
+  //   return this.user.propertiesPermissions.some((propertiePermission)=>{
+  //     return propertiePermission === permission
+  //   })
+  // }
+  // private getUsuarioLogado():User{
+  //   return this.users.find((user)=>{
+  //     return user.id===this.userId
+  //   })
+  // }
 }
 
 

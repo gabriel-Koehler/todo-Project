@@ -10,7 +10,7 @@ Usuario.init({
         allowNull: false,
         primaryKey: true
     },
-    nome:{
+    name:{
         type: DataTypes.STRING,
         allowNull: false
     },

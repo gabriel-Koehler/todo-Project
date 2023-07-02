@@ -13,6 +13,7 @@ import { PropriedadeComponent } from './propriedade/propriedade.component';
 
 import { UserRepository } from 'src/repositories/user.repository';
 import { LoginComponent } from './Login/login.component';
+import { CadastroComponent } from './Cadastro/cadastro.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { LoginComponent } from './Login/login.component';
     TodoAppComponent,
     CategoriaComponent,
     PropriedadeComponent,
-    LoginComponent
+    LoginComponent,
+    CadastroComponent
   ],
   imports: [
     BrowserModule,
