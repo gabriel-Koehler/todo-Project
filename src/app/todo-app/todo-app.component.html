@@ -1,16 +1,18 @@
 <div class="todo-app">
 <div id="adicionarTask">
   <label *ngFor="let propriedade of propriedades; index as indice">
-    
+    <abbr title="{{propriedade.nomePropriedade}}">
     <button *ngIf="!valoresEscolhidosTarefa[indice]" 
             (mousedown)="adicionarInput(indice)">
       +
     </button>
+    </abbr>
+    <abbr title="{{propriedade.nomePropriedade}}">
     <button *ngIf="valoresEscolhidosTarefa[indice]" 
             (mousedown)="adicionarInput(indice)">
       -
     </button>
-
+    </abbr>
     <input *ngIf="valoresEscolhidosTarefa[indice] 
             && propriedade.array.length==[]" 
     [type]="propriedade.tipoDeDado"
