@@ -13,9 +13,11 @@ export class CadastroComponent {
     name:string
     password:string
     email:string
+    idRemover:string
 
-
-    constructor(private userRepository:UserRepository){    }
+    constructor(private userRepository:UserRepository){   
+    
+     }
     
     cadastrarUsuario(){
         let user=new User()
@@ -23,7 +25,17 @@ export class CadastroComponent {
         user.name=this.name
         user.password=this.password
         user.email=this.email
-        console.log(user)
-        this.userRepository.criarUser(user)
+        this.userRepository.criarUser(user).subscribe((data:User)=>{
+            this.id=''
+            this.name=''
+            this.password=''
+            this.email=''
+            console.log(data)
+        })
+    }
+    removerUsuario(){
+        this.userRepository.removerUsuario(this.idRemover).subscribe(()=>{
+            console.log(this.idRemover)
+        })
     }
 }
