@@ -5,7 +5,7 @@ import { Observable} from "rxjs";
 import { map } from "rxjs/operators";
 import { async } from "rxjs/internal/scheduler/async";
 
-const API_URL = 'http://localhost:4300/usuarios'
+const API_URL = 'http://localhost:4300/usuarios/'
 
 @Injectable()
 export class UserRepository {
@@ -30,10 +30,13 @@ export class UserRepository {
         return this.httpClient.get<User[]>(API_URL)
         .pipe(
             map(values => {
-                let user: User; 
-                for (const value of values) {
+                let user=new User;
+                console.log(id) 
+                for (let value of values) {
+                    console.log(value)
                     if(value.id==id){
                         user=value
+                        console.log(user)
                     }
                 }
                 return user;
@@ -44,8 +47,11 @@ export class UserRepository {
         console.log(userCriado)
         return this.httpClient.post<User>(API_URL,userCriado)
     }
-    public removerUsuario(id:string): Observable<void>{
-        console.log(id)
-        return this.httpClient.delete<void>(API_URL+"/"+id)
+    public removerUser(user): Observable<void>{
+        console.log(user)
+        return this.httpClient.delete<void>(API_URL+user.id,)
     }
+    public updateUser(user): Observable<User>{
+        return this.httpClient.put<User>(API_URL,user)
+    }   
 }

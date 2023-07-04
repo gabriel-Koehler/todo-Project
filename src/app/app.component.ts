@@ -14,30 +14,42 @@ export class AppComponent{
   rotaTdApp:boolean=false
   rotaAddCategoria:boolean=true
   
-  private userId:string ="diogo.defante"
+  private userId:string ="diogo.defate"
   private users:User[]=[]
   private user:User
 
   constructor(
     private userRepository:UserRepository
     ){
-      userRepository.getUsers()
-      .subscribe({
-        next: (value)=>{
-          console.log(value)
-          this.users=value
-          console.log(this.users)
-          
-        }
-      })
       userRepository.getUserById(this.userId).subscribe({
         next: (value)=>{
           this.user=value
           console.log(this.user)
         }
       })
+      userRepository.getUsers()
+    .subscribe({
+      next: (value)=>{
+        console.log(value)
+        this.users=value
+        console.log(this.users)
+        
+      }
+    })
+    //  this.getUsuarios()
+     
+      // this.getUsuarioById(this.userId)
+      
       
   }
+  // getUsuarios(){
+  //   this.
+    
+  // }
+  // getUsuarioById(id){
+  //   this
+    
+  // }  
   rotaAdicionaCategoria():void{
     this.rotaTdApp=true
     this.rotaAddCategoria=false
