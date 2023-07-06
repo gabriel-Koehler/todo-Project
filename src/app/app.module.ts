@@ -14,6 +14,8 @@ import { PropriedadeComponent } from './propriedade/propriedade.component';
 import { UserRepository } from 'src/repositories/user.repository';
 import { LoginComponent } from './Login/login.component';
 import { CadastroComponent } from './Cadastro/cadastro.component';
+import { AuthGuardService } from 'src/services/auth-guard.service';
+import { AuthService } from 'src/services/auth-service';
 
 @NgModule({
   declarations: [
@@ -33,7 +35,10 @@ import { CadastroComponent } from './Cadastro/cadastro.component';
     HttpClientModule
   ],
   providers: [
-    UserRepository
+    AppComponent,
+    UserRepository,
+    AuthGuardService,
+    AuthService
   ],
   bootstrap: [AppComponent]
 })

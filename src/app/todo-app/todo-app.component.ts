@@ -1,5 +1,7 @@
 import {  Component, Injectable, Input } from "@angular/core";
+import { User } from "src/models/users/user";
 import { AppComponent } from "../app.component";
+
 
 interface Tarefa {
   arrayPropriedade: Propriedade[]
@@ -59,6 +61,8 @@ export class TodoAppComponent {
   }
 
   ngOnInit(): void {
+    let userTeste:User=JSON.parse(this.appComponent.getCookie("UserLogado"))
+                console.log((userTeste))
     
     if (localStorage.getItem('propriedades') != null) {
       this.propriedades = JSON.parse(localStorage.getItem('propriedades'))

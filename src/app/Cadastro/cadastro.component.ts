@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { User } from "src/models/users/user";
 import { UserRepository } from "src/repositories/user.repository";
-import { AppComponent } from "../app.component";
+
 
 @Component({
     selector:'cadastr-app',
@@ -20,7 +20,7 @@ export class CadastroComponent {
     emailUpdate:string
     idRemover:string
 
-    constructor(private userRepository:UserRepository,private appComponent:AppComponent){   
+    constructor(private userRepository:UserRepository){   
     
      }
     

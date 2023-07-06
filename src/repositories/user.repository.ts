@@ -51,7 +51,7 @@ export class UserRepository {
         console.log(user)
         return this.httpClient.delete<void>(API_URL+user.id,)
     }
-    public updateUser(user): Observable<User>{
+    public updateUser(user:User): Observable<User>{
         return this.httpClient.put<User>(API_URL,user)
     }   
 }
