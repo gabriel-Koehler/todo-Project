@@ -28,6 +28,7 @@ export class LoginComponent{
                     alert("User Logado"+this.user.name)
                     this.setCookie("UserLogado",JSON.stringify(this.user),86400)
                     this.route.navigate(['todo-app'])
+                    
                 }else{
                     alert("User Não encontrado")
                 }
@@ -47,5 +48,5 @@ export class LoginComponent{
             "; expires=" + d.toUTCString() 
         
     }
-    
+       
 }
