@@ -65,7 +65,7 @@
     (dragstart)="dragTarefa(tarefa)"
     (dragover)="dragovrTarefa()" 
     (drop)="dropTarefa(indice, $event)" 
-    [draggable]="appComponent.hasCardPermission('MoveCard')" 
+    [draggable]="true" 
     class="lista dropZone" >
         <tarefa-app 
         *ngIf="tarefa.arrayValorPropriedade[propriedades.indexOf(propriedadeAMostrar)]==categoria.categoria" 

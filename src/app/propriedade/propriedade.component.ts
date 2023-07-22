@@ -62,6 +62,11 @@ export class PropriedadeComponent{
         console.log(this.propriedade)
         this.propriedades.push(this.propriedade)
         localStorage.setItem('propriedades',JSON.stringify(this.propriedades))
+        this.nomePropriedade=''
+        this.tipoDeDado=''
+        this.arrayPropriedade=[]
+        this.completar=false
+        this.escolhidoSelecao=false
 
     }
     adicionarCategoriaPropriedade(categoria):void{
