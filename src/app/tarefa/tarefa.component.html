@@ -1,15 +1,46 @@
 
 <div class="tarefa">
-    <h4>Tarefa: {{nomeTarefa}}</h4>
-    <p>Descrição:</p>
-    <textarea  
+    <label *ngFor="let propriedade of tarefa.arrayPropriedade;index as indice">
+      <abbr title="{{propriedade.nomePropriedade}}">
+      <button *ngIf="!tarefa.valoresEscolhidosPropriedade[indice]" 
+      (mousedown)="adicionarInput(indice)">
+      +
+      </button>
+      </abbr>
+      <abbr title="{{propriedade.nomePropriedade}}">
+      <button *ngIf="tarefa.valoresEscolhidosPropriedade[indice]" 
+      (mousedown)="adicionarInput(indice)">
+      -
+      </button>
+      </abbr>
+
+        <input *ngIf="tarefa.valoresEscolhidosPropriedade[indice] 
+                      && propriedade.array.length==[]" 
+        (change)="inputMudou(indiceTarefa,
+        tarefa.arrayValorPropriedade[indice],
+        indice)"
+        [type]="propriedade.tipoDeDado"
+        [placeholder]="propriedade.nomePropriedade"
+        [(ngModel)]="tarefa.arrayValorPropriedade[indice]"
+        >
+        <select *ngIf="tarefa.valoresEscolhidosPropriedade[indice]
+                      && propriedade.array.length!=[]"  
+                (change)="categoriaMudou(indiceTarefa,
+                tarefa.arrayValorPropriedade[indice],
+                indice)"
+                style="background-color: #b6dcfe;"  
+                id="categ" 
+                [(ngModel)]="tarefa.arrayValorPropriedade[indice]">
+            <option *ngFor="let categoria of propriedade.array;index as indice">
+              {{categoria.categoria}}
+            </option>
+        </select>
+      </label>
+    <!-- <textarea  
     cols="auto" 
     rows="auto"
     style="resize: none;max-width: 190px; max-height: 100px;"
-    (change)="descricaoMudou(indice,descricaoTarefa)" [(ngModel)]="descricaoTarefa"></textarea>
-    <p>categoria: </p>
-    <select (mouseout)="categoriaMudou(indice,tfCategoria)"  [(ngModel)]="tfCategoria">
-        <option *ngFor="let categoria of categorias">{{categoria.categoria}}</option>
-    </select>
-    <button (click)="clickRemover(indice)">Remover</button>
+    (change)="descricaoMudou(indice,descricaoTarefa)" [(ngModel)]="descricaoTarefa"></textarea> -->
+    
+    <button (click)="clickRemover(indiceTarefa)">Remover</button>
 </div>

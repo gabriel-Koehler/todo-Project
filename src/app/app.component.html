@@ -1,9 +1,12 @@
 <header>
   <p>TODO</p>
   <div>
-  <button *ngIf="rotaAddCategoria" (click)="rotaAdicionaCategoria()"><a routerLink="/categoria">Adicionar Categoria</a></button>
-  <button ><a routerLink="/propriedade">Adicionar propriedade</a></button>
-  <button *ngIf="rotaTdApp" (click)="rotaTodoApp()"><a routerLink="/todo-app">Todo-app</a></button>
+    <button><a routerLink="/cadastro-app">cadastro</a></button>
+    <button><a routerLink="/login-app">Login</a></button>
+    <button><a routerLink="todo-app">todo</a></button>
+    <button *ngIf="rotaAddCategoria" (click)="rotaAdicionaCategoria()"><a routerLink="/categoria">Adicionar Categoria</a></button>
+    <button ><a routerLink="/propriedade">Adicionar propriedade</a></button>
+    <button *ngIf="rotaTdApp" (click)="rotaTodoApp()"><a routerLink="/todo-app">Todo-app</a></button>
   </div>
 </header>  
 <router-outlet></router-outlet>

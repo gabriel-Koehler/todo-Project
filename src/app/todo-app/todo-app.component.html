@@ -1,20 +1,35 @@
 <div class="todo-app">
 <div id="adicionarTask">
-  <label>Insira um Titulo</label>
-  <input style="background-color: #b6dcfe;" placeholder="Titulo" [(ngModel)]="titulo" />
-  <label for="">Descrição</label>
-  <input style="background-color: #b6dcfe;" type="text" [(ngModel)]="descricao">
-  <label for="">Categoria</label>
-  <br>
-  <select style="background-color: #b6dcfe;" 
-    name="categoria" 
-    id="categ" 
-    (adicionar)="adicionarCategoria($event)"
-    [(ngModel)]="categoria">
-    <option *ngFor="let categoria of categorias;index as indice">
-      {{categoria.categoria}}
-    </option>
-  </select>
+  <label *ngFor="let propriedade of propriedades; index as indice">
+    <abbr title="{{propriedade.nomePropriedade}}">
+    <button *ngIf="!valoresEscolhidosTarefa[indice]" 
+            (mousedown)="adicionarInput(indice)">
+      +
+    </button>
+    </abbr>
+    <abbr title="{{propriedade.nomePropriedade}}">
+    <button *ngIf="valoresEscolhidosTarefa[indice]" 
+            (mousedown)="adicionarInput(indice)">
+      -
+    </button>
+    </abbr>
+    <input *ngIf="valoresEscolhidosTarefa[indice] 
+            && propriedade.array.length==[]" 
+    [type]="propriedade.tipoDeDado"
+    [placeholder]="propriedade.nomePropriedade"
+    [(ngModel)]="valoresTarefa[indice]">
+
+    <select *ngIf="valoresEscolhidosTarefa[indice]
+                  && propriedade.array.length!=[]"  
+
+            style="background-color: #b6dcfe;"  
+            id="categ" 
+            [(ngModel)]="valoresTarefa[indice]">
+        <option *ngFor="let categoria of propriedade.array;index as indice">
+          {{categoria.categoria}}
+        </option>
+    </select>
+  </label>
   <button 
   (click)="cadastrarTarefa()">
     Adicionar tarefa
@@ -22,11 +37,20 @@
 
 </div>
 
+<div *ngIf="listaDeProPriedadesComArray().length!=[]">
+  <select [(ngModel)]="propriedadeAMostrar">
+    <option [ngValue]="propriedade" *ngFor="let propriedade of listaDeProPriedadesComArray()">
+    {{propriedade.nomePropriedade}}
+    </option>
+  </select>
+</div>
+
 <div class="tarefa">
 
-  <div (dragover)="dragovrTarefa()" 
+  <div 
+  *ngFor="let categoria of propriedadeAMostrar.array;index as indiceCateg" 
+  (dragover)="dragovrTarefa()" 
   (drop)="getCategoriaTarefa(categoria.categoria, $event)"
-  *ngFor="let categoria of categorias;index as indiceCateg " 
   id="{{categoria.categoria}}"
   class="categorias" >
 
@@ -41,18 +65,16 @@
     (dragstart)="dragTarefa(tarefa)"
     (dragover)="dragovrTarefa()" 
     (drop)="dropTarefa(indice, $event)" 
-    draggable="true" 
+    [draggable]="true" 
     class="lista dropZone" >
-
-        <tarefa-app *ngIf="tarefa.categoria==categoria.categoria" 
-        [nomeTarefa]="tarefa.titulo"
-        [descricaoTarefa]="tarefa.descricao"
-        [tfCategoria]="categoria.categoria"
-        [categorias]="categorias"
-        [indice]="indice"
-        (onMudou)="atualizar($event)"
+        <tarefa-app 
+        *ngIf="tarefa.arrayValorPropriedade[propriedades.indexOf(propriedadeAMostrar)]==categoria.categoria" 
+        [tarefa]="tarefa"
+        [indiceTarefa]="indice"
+        (onMudouVisibilidade)="mudarVisibilidade($event)"
+        (onMudou)="atualizarCategoria($event)"
         (onRemove)="removerTarefa($event)"
-        (onDescricao)="mudarDescricao($event)">
+        (onDescricao)="mudarInput($event)">
         </tarefa-app>
     </div>
 

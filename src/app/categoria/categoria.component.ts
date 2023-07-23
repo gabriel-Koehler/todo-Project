@@ -10,7 +10,7 @@ export class CategoriaComponent {
     @Input() tituloCategoria:string
     @Input() indiceCategoria:number
     @Output() onRemoveCateg=new EventEmitter()
-
+    
     removeCateg(indice):void{
         this.onRemoveCateg.emit(indice)
     }

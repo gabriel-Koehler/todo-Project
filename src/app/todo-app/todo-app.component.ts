@@ -1,124 +1,236 @@
-import { asNativeElements, Component, Input } from "@angular/core";
-import { forEach } from "@angular/router/src/utils/collection";
+import {  Component, Injectable, Input } from "@angular/core";
+import { User } from "src/models/users/user";
+import { AppComponent } from "../app.component";
 
-interface Tarefa{
-    titulo:string,
-    categoria:string,
-    descricao:string
-  }
-  interface Categoria{
-    categoria:string,
-    corFundo:string
-  }
+
+interface Tarefa {
+  arrayPropriedade: Propriedade[]
+  arrayValorPropriedade: any[]
+  valoresEscolhidosPropriedade: boolean[]
+}
+interface Categoria {
+  categoria: string,
+  corFundo: string
+}
+interface Propriedade {
+  nomePropriedade: string,
+  tipoDeDado: string | number,
+  array: Categoria[]
+}
 @Component({
-    selector:'todo-app',
-    templateUrl: './todo-app.component.html',
-    styleUrls:['./todo-app.component.css']
+  selector: 'todo-app',
+  templateUrl: './todo-app.component.html',
+  styleUrls: ['./todo-app.component.css']
 })
-export class TodoAppComponent{
-  titulo:string=''
-  categoria:string =''
-  categoriaAtualizada:string 
-  descricao:string=''
-tarefa: Tarefa={
- titulo: this.titulo,
- categoria: this.categoria,
- descricao: this.descricao
-}
-
-tarefaTransicao:Tarefa
-
- categorias:Categoria[]=[]
- 
-tarefas: Tarefa[]=[]
-
-ngOnInit():void{
-    
-    if(localStorage.getItem('tarefas')!=null){
-    this.tarefas = JSON.parse(localStorage.getItem('tarefas'))
-    console.log(this.tarefas)
-    }
-    
-    if(localStorage.getItem('categorias')==null ){
-      this.categorias.push(
-      {categoria: 'TODO',corFundo:''},
-      {categoria: 'DOING',corFundo:''},
-      {categoria: 'DONE',corFundo:''}
-      )
-      console.log(this.categorias)
-      localStorage.setItem('categorias',JSON.stringify(this.categorias));  
-    } else if(localStorage.getItem('categorias')!=null){
-    this.categorias = (JSON.parse(localStorage.getItem('categorias')))
-    console.log(this.categorias)
+@Injectable()
+export class TodoAppComponent {
+  categoriaAtualizada: string
+  
+  propriedadeAMostrar:Propriedade={
+    nomePropriedade: '',
+    tipoDeDado:'',
+    array: []
   }
-}
- cadastrarTarefa():void{
+  
+  tarefaTransicao: Tarefa={
+    arrayPropriedade: [],
+  arrayValorPropriedade: [],
+  valoresEscolhidosPropriedade: [],
+  }
+  tarefaCadastrar:Tarefa
+  // tarefa: Tarefa = {
+  //   arrayPropriedade: [],
+  //   arrayValorPropriedade: [],
+  //   valoresEscolhidosPropriedade: []
+  // }
+  propriedade:Propriedade={
+  nomePropriedade: '',
+  tipoDeDado: '',
+  array: []
+  }
+  propriedades: Propriedade[]=[]
 
-    if( this.titulo=='' || this.categoria=='' || this.descricao==''){
-      alert('Insira em todos os campos primeiro para cadastrar')
+  valoresTarefa: any[] = []
+
+  valoresEscolhidosTarefa: boolean[] = []
+
+  tarefas: Tarefa[] = []
+
+  constructor(private appComponent:AppComponent){
+    
+  }
+
+  ngOnInit(): void {
+    let userTeste:User=JSON.parse(this.appComponent.getCookie("UserLogado"))
+                console.log((userTeste))
+    
+    if (localStorage.getItem('propriedades') != null) {
+      this.propriedades = JSON.parse(localStorage.getItem('propriedades'))
+      console.log(this.propriedades)
+      console.log(this.propriedades.length)
+      
+      this.valoresTarefa.length = this.propriedades.length
+      this.valoresEscolhidosTarefa.length = this.propriedades.length
+      console.log(this.valoresTarefa.length)
+      console.log(this.valoresEscolhidosTarefa.length)
     }else{
-    const tarefa: Tarefa={
-      titulo: this.titulo,
-      categoria: this.categoria,
-      descricao: this.descricao
+      this.propriedades.push({
+        nomePropriedade: 'Nome',
+        tipoDeDado: 'text',
+        array: []
+      })
+      localStorage.setItem('propriedades',JSON.stringify(this.propriedades))
     }
-    this.tarefas.push(tarefa)
-    console.log(this.categoria)
-    this.titulo=''
-    this.categoria=''
-    this.descricao=''
-    this.addTarefaLocalStorage()
+
+    for (let i = 0; i < this.valoresEscolhidosTarefa.length; i++) {
+      if(i==0){
+        this.valoresEscolhidosTarefa[i]=true
+      } else{
+        this.valoresEscolhidosTarefa[i]=false
+      }
     }
- }
- removerTarefa(indice):void{
-    this.tarefas.splice(indice,1)
-    this.addTarefaLocalStorage()
- }
- atualizar(valor):void{
-  this.tarefas=JSON.parse(localStorage.getItem('tarefas'))
-  console.log(valor.indice)
-  this.tarefas[valor.indice].categoria=valor.categoria
-  this.addTarefaLocalStorage()
- }
- adicionarCategoria(categoria):void{
-    console.log(categoria+'todo-app')
- }
- removerCategoria(id):void{
-  for(let tarefa of this.tarefas){
-    console.log(this.tarefas)
-    if(tarefa.categoria==this.categorias[id].categoria){
-      this.tarefas.splice(this.tarefas.indexOf(tarefa),1)
+    
+    if (localStorage.getItem('tarefas') != null) {
+      this.tarefas = JSON.parse(localStorage.getItem('tarefas'))
+      console.log(this.tarefas)
+      for(let tarefa of this.tarefas){
+        tarefa.arrayPropriedade=this.propriedades
+        tarefa.arrayValorPropriedade.length=this.propriedades.length
+        tarefa.valoresEscolhidosPropriedade.length=this.propriedades.length
+        this.addTarefaLocalStorage()
+      }
+      this.tarefas = JSON.parse(localStorage.getItem('tarefas'))
     }
+    // console.log(this.appComponent.hasCardPermission('Add'))
+    // console.log(this.appComponent.hasCardPermission('MoveCard'))
+    // console.log(this.appComponent.hasCardPermission('Edit'))
+
+    console.log(this.valoresEscolhidosTarefa  )
+    
   }
-  
-  this.categorias.splice(id,1)
-  localStorage.setItem('categorias',JSON.stringify(this.categorias))
-  this.addTarefaLocalStorage()
- }
 
- mudarDescricao(valor):void{
-  this.tarefas=JSON.parse(localStorage.getItem('tarefas'))
-  console.log(valor.indice)
-  this.tarefas[valor.indice].descricao=valor.descricaoTarefa
-  this.addTarefaLocalStorage()
- }
+  //cadastro e edição de tarefas
 
- dragTarefa(tarefaD):void{
-  console.log('drag')
-  this.tarefaTransicao = tarefaD;
- }
- getCategoriaTarefa(c, event: Event):void{
-  this.tarefas[this.tarefas.indexOf(this.tarefaTransicao)].categoria=c
-  this.addTarefaLocalStorage()
- }
- dropTarefa(i, event: Event):void{
+  adicionarInput(i): void{
+    this.valoresEscolhidosTarefa[i]=!this.valoresEscolhidosTarefa[i]
+  }
+
+  mudarVisibilidade(i){
+    this.tarefas[i.indiceTarefa].valoresEscolhidosPropriedade[i.indicePropriedadeEscolhida]=!this.tarefas[i.indiceTarefa].valoresEscolhidosPropriedade[i.indicePropriedadeEscolhida]
+    this.addTarefaLocalStorage()
+  }
+
+  cadastrarTarefa(): void {
+    console.log(this.valoresEscolhidosTarefa)
+      alert('Insira em todos os campos primeiro para cadastrar')
+      console.log(this.valoresTarefa)
+      console.log(this.valoresEscolhidosTarefa)
+       const tarefaCadastrar:Tarefa = {
+        arrayPropriedade: this.propriedades,
+        arrayValorPropriedade: this.valoresTarefa,
+        valoresEscolhidosPropriedade: this.valoresEscolhidosTarefa
+      }
+      console.log(tarefaCadastrar) 
+      this.tarefas.push(tarefaCadastrar)
+      this.valoresTarefa=[]
+      this.valoresEscolhidosTarefa=[]
+      this.valoresTarefa.length = this.propriedades.length
+      this.valoresEscolhidosTarefa.length = this.propriedades.length
+      console.log(this.tarefas)
+ 
+      this.addTarefaLocalStorage()  
+    
+  }
+
+  removerTarefa(indice): void {
+    this.tarefas.splice(indice, 1)
+    this.addTarefaLocalStorage()
+  }
+
+  atualizarCategoria(valor): void {
+    this.tarefas = JSON.parse(localStorage.getItem('tarefas'))
+    let idPropri:number=this.propriedades.indexOf(valor.propriedadeMudada)
+
+    console.log(idPropri+' '+valor.indice+' '+valor.categoria+' '+valor.indicePropriedadeMudada)
+    
+    console.log(this.tarefas[valor.indice]) 
+    console.log(this.tarefas[valor.indice].arrayPropriedade[valor.indicePropriedadeMudada])
+    this.tarefas[valor.indice].arrayValorPropriedade[valor.indicePropriedadeMudada]=valor.categoria
+    this.addTarefaLocalStorage()
+  }
+
   
-   console.log(i)
-   for (const i of this.tarefas) {
-     if (i == this.tarefaTransicao) {
+
+  removerCategoria(id): void {
+    for (let tarefa of this.tarefas) {
       console.log(this.tarefas)
-       this.tarefas.splice(this.tarefas.indexOf(i), 1)
-      console.log(this.tarefas)
+      if (tarefa.arrayValorPropriedade
+        [this.propriedades.indexOf(this.propriedadeAMostrar)] 
+        ==
+        this.propriedadeAMostrar.array[id].categoria) {
+
+        this.tarefas.splice(this.tarefas.indexOf(tarefa), 1)
+      }
+    }
+
+    this.propriedades
+    [this.propriedades.indexOf(this.propriedadeAMostrar)].array.splice(id, 1)
+    localStorage.setItem('propriedades', JSON.stringify(this.propriedades))
+    this.addTarefaLocalStorage()
+  }
+
+  mudarInput(valor): void {
+    this.tarefas = JSON.parse(localStorage.getItem('tarefas'))
+    console.log(valor.indice) 
+    console.log(valor.valorTarefa) 
+    console.log(valor.indicePropriedadeMudada)
+    this.tarefas[valor.indice].
+    arrayValorPropriedade[valor.indicePropriedadeMudada] = valor.valorTarefa
+    this.addTarefaLocalStorage()
+  }
+  //cadastro e edição de tarefas
+
+  //mudar pro propriedade
+    listaDeProPriedadesComArray(){
+        const propriedadesComArray:Propriedade[]=[]
+      for(let propriedade of this.propriedades){
+        if(propriedade.array.length!=0){
+          propriedadesComArray.push(propriedade)
+        }
+      }
+      return propriedadesComArray
+      }
+    
+  //
+
+  // drag de tarefas
+
+  dragTarefa(tarefaD): void {
+    console.log('drag')
+    this.tarefaTransicao = tarefaD;
+    console.log(this.tarefaTransicao)
+  }
+
+  getCategoriaTarefa(c, event: Event): void {
+    event.preventDefault()
+    console.log(c) 
+    console.log(this.propriedadeAMostrar) 
+    let idTarefa=this.tarefas.indexOf(this.tarefaTransicao)
+    let idPropri=(this.propriedades.indexOf(this.propriedadeAMostrar))
+    console.log(idTarefa) 
+    console.log(idPropri) 
+    this.tarefas[idTarefa].arrayValorPropriedade[idPropri] = c
+    this.addTarefaLocalStorage()
+  }
+
+  dropTarefa(i, event: Event): void {
+    event.preventDefault()
+    console.log(i)
+    for (let i of this.tarefas) {
+      if (i == this.tarefaTransicao) {
+        console.log(this.tarefas)
+        this.tarefas.splice(this.tarefas.indexOf(i), 1)
+        console.log(this.tarefas)
       }
     }
     console.log(this.tarefas)
@@ -126,13 +238,17 @@ ngOnInit():void{
     console.log(this.tarefas)
     this.addTarefaLocalStorage()
 
-   console.log('drop')
- }
- dragovrTarefa():void{
-  event.preventDefault()
- }
+    console.log('drop')
+  }
 
- addTarefaLocalStorage():void{
-   localStorage.setItem('tarefas',JSON.stringify(this.tarefas))
- }
+  dragovrTarefa(): void {
+    event.preventDefault()
+  }
+  // drag de tarefas
+
+  addTarefaLocalStorage(): void {
+    localStorage.setItem('tarefas', JSON.stringify(this.tarefas))
+  }
+
+
 }
